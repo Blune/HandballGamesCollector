@@ -12,3 +12,4 @@ So these steps happen:
 
 ## What terraform creates
 
+![Terraform graph](./terraform_resources.svg)
