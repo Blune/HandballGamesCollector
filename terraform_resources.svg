@@ -1,0 +1,258 @@
+<?xml version="1.0" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1877pt" height="548pt" viewBox="0.00 0.00 1877.10 548.00">
+<g id="graph0" class="graph" transform="translate(4,544) scale(1)" data-name="">
+<polygon fill="white" stroke="none" points="-4,4 -4,-544 1873.1,-544 1873.1,4 -4,4" style=""/>
+<!-- [root] azurerm_linux_function_app.handball&#45;linux&#45;function&#45;app (expand) -->
+<g id="node1" class="node" pointer-events="visible" data-name="[root] azurerm_linux_function_app.handball-linux-function-app (expand)">
+
+<polygon fill="none" stroke="black" points="1458.62,-396 1118.93,-396 1118.93,-360 1458.62,-360 1458.62,-396" style=""/>
+<text text-anchor="middle" x="1288.78" y="-373.8" font-family="Times,serif" font-size="14.00" style="">azurerm_linux_function_app.handball-linux-function-app</text>
+</g>
+<!-- [root] azurerm_service_plan.handball&#45;app&#45;service&#45;plan (expand) -->
+<g id="node3" class="node" pointer-events="visible" data-name="[root] azurerm_service_plan.handball-app-service-plan (expand)">
+
+<polygon fill="none" stroke="black" points="1407.53,-180 1118.02,-180 1118.02,-144 1407.53,-144 1407.53,-180" style=""/>
+<text text-anchor="middle" x="1262.78" y="-157.8" font-family="Times,serif" font-size="14.00" style="">azurerm_service_plan.handball-app-service-plan</text>
+</g>
+<!-- [root] azurerm_linux_function_app.handball&#45;linux&#45;function&#45;app (expand)&#45;&gt;[root] azurerm_service_plan.handball&#45;app&#45;service&#45;plan (expand) -->
+<g id="edge1" class="edge" data-name="[root] azurerm_linux_function_app.handball-linux-function-app (expand)-&gt;[root] azurerm_service_plan.handball-app-service-plan (expand)">
+
+<path fill="none" stroke="black" d="M1286.45,-359.82C1285.06,-349.45 1283.27,-335.97 1281.78,-324 1275.99,-277.69 1269.73,-223.83 1266.03,-191.62" style=""/>
+<polygon fill="black" stroke="black" points="1269.54,-191.44 1264.92,-181.91 1262.58,-192.24 1269.54,-191.44" style=""/>
+</g>
+<!-- [root] data.azurerm_storage_account_blob_container_sas.storage_account_blob_container_sas (expand) -->
+<g id="node8" class="node" pointer-events="visible" data-name="[root] data.azurerm_storage_account_blob_container_sas.storage_account_blob_container_sas (expand)">
+
+<polygon fill="none" stroke="black" points="1802.53,-324 1291.02,-324 1291.02,-288 1802.53,-288 1802.53,-324" style=""/>
+<text text-anchor="middle" x="1546.78" y="-301.8" font-family="Times,serif" font-size="14.00" style="">data.azurerm_storage_account_blob_container_sas.storage_account_blob_container_sas</text>
+</g>
+<!-- [root] azurerm_linux_function_app.handball&#45;linux&#45;function&#45;app (expand)&#45;&gt;[root] data.azurerm_storage_account_blob_container_sas.storage_account_blob_container_sas (expand) -->
+<g id="edge2" class="edge" data-name="[root] azurerm_linux_function_app.handball-linux-function-app (expand)-&gt;[root] data.azurerm_storage_account_blob_container_sas.storage_account_blob_container_sas (expand)">
+
+<path fill="none" stroke="black" d="M1353.22,-359.52C1389.22,-349.75 1434.25,-337.53 1471.82,-327.34" style=""/>
+<polygon fill="black" stroke="black" points="1472.52,-330.77 1481.25,-324.78 1470.69,-324.02 1472.52,-330.77" style=""/>
+</g>
+<!-- [root] local.node_version (expand) -->
+<g id="node13" class="node" pointer-events="visible" data-name="[root] local.node_version (expand)">
+
+<ellipse fill="none" stroke="black" cx="1089.78" cy="-306" rx="145.26" ry="18" style=""/>
+<text text-anchor="middle" x="1089.78" y="-301.8" font-family="Times,serif" font-size="14.00" style="">[root] local.node_version (expand)</text>
+</g>
+<!-- [root] azurerm_linux_function_app.handball&#45;linux&#45;function&#45;app (expand)&#45;&gt;[root] local.node_version (expand) -->
+<g id="edge3" class="edge" data-name="[root] azurerm_linux_function_app.handball-linux-function-app (expand)-&gt;[root] local.node_version (expand)">
+
+<path fill="none" stroke="black" d="M1239.08,-359.52C1211.21,-349.71 1176.32,-337.44 1147.27,-327.23" style=""/>
+<polygon fill="black" stroke="black" points="1148.48,-323.94 1137.88,-323.92 1146.16,-330.54 1148.48,-323.94" style=""/>
+</g>
+<!-- [root] azurerm_resource_group.handball&#45;resource&#45;group (expand) -->
+<g id="node2" class="node" pointer-events="visible" data-name="[root] azurerm_resource_group.handball-resource-group (expand)">
+
+<polygon fill="none" stroke="black" points="1568.32,-108 1271.24,-108 1271.24,-72 1568.32,-72 1568.32,-108" style=""/>
+<text text-anchor="middle" x="1419.78" y="-85.8" font-family="Times,serif" font-size="14.00" style="">azurerm_resource_group.handball-resource-group</text>
+</g>
+<!-- [root] provider[&quot;registry.terraform.io/hashicorp/azurerm&quot;] -->
+<g id="node11" class="node" pointer-events="visible" data-name="[root] provider[&quot;registry.terraform.io/hashicorp/azurerm&quot;]">
+
+<polygon fill="none" stroke="black" points="978.78,-36 680.75,-18 978.78,0 1276.81,-18 978.78,-36" style=""/>
+<text text-anchor="middle" x="978.78" y="-13.8" font-family="Times,serif" font-size="14.00" style="">provider["registry.terraform.io/hashicorp/azurerm"]</text>
+</g>
+<!-- [root] azurerm_resource_group.handball&#45;resource&#45;group (expand)&#45;&gt;[root] provider[&quot;registry.terraform.io/hashicorp/azurerm&quot;] -->
+<g id="edge6" class="edge" data-name="[root] azurerm_resource_group.handball-resource-group (expand)-&gt;[root] provider[&quot;registry.terraform.io/hashicorp/azurerm&quot;]">
+
+<path fill="none" stroke="black" d="M1309.63,-71.52C1235.68,-59.78 1139.42,-44.5 1069.81,-33.45" style=""/>
+<polygon fill="black" stroke="black" points="1070.36,-29.99 1059.94,-31.88 1069.27,-36.91 1070.36,-29.99" style=""/>
+</g>
+<!-- [root] local.location (expand) -->
+<g id="node14" class="node" pointer-events="visible" data-name="[root] local.location (expand)">
+
+<ellipse fill="none" stroke="black" cx="1419.78" cy="-18" rx="124.42" ry="18" style=""/>
+<text text-anchor="middle" x="1419.78" y="-13.8" font-family="Times,serif" font-size="14.00" style="">[root] local.location (expand)</text>
+</g>
+<!-- [root] azurerm_resource_group.handball&#45;resource&#45;group (expand)&#45;&gt;[root] local.location (expand) -->
+<g id="edge4" class="edge" data-name="[root] azurerm_resource_group.handball-resource-group (expand)-&gt;[root] local.location (expand)">
+
+<path fill="none" stroke="black" d="M1419.78,-71.7C1419.78,-64.41 1419.78,-55.73 1419.78,-47.54" style=""/>
+<polygon fill="black" stroke="black" points="1423.28,-47.62 1419.78,-37.62 1416.28,-47.62 1423.28,-47.62" style=""/>
+</g>
+<!-- [root] local.name (expand) -->
+<g id="node15" class="node" pointer-events="visible" data-name="[root] local.name (expand)">
+
+<ellipse fill="none" stroke="black" cx="1676.78" cy="-18" rx="114.03" ry="18" style=""/>
+<text text-anchor="middle" x="1676.78" y="-13.8" font-family="Times,serif" font-size="14.00" style="">[root] local.name (expand)</text>
+</g>
+<!-- [root] azurerm_resource_group.handball&#45;resource&#45;group (expand)&#45;&gt;[root] local.name (expand) -->
+<g id="edge5" class="edge" data-name="[root] azurerm_resource_group.handball-resource-group (expand)-&gt;[root] local.name (expand)">
+
+<path fill="none" stroke="black" d="M1483.97,-71.52C1522.56,-61 1571.59,-47.65 1610.54,-37.04" style=""/>
+<polygon fill="black" stroke="black" points="1611.06,-40.53 1619.78,-34.52 1609.22,-33.77 1611.06,-40.53" style=""/>
+</g>
+<!-- [root] azurerm_service_plan.handball&#45;app&#45;service&#45;plan (expand)&#45;&gt;[root] azurerm_resource_group.handball&#45;resource&#45;group (expand) -->
+<g id="edge7" class="edge" data-name="[root] azurerm_service_plan.handball-app-service-plan (expand)-&gt;[root] azurerm_resource_group.handball-resource-group (expand)">
+
+<path fill="none" stroke="black" d="M1301.99,-143.52C1322.67,-134.29 1348.26,-122.89 1370.3,-113.06" style=""/>
+<polygon fill="black" stroke="black" points="1371.7,-116.27 1379.41,-109 1368.85,-109.87 1371.7,-116.27" style=""/>
+</g>
+<!-- [root] azurerm_storage_account.handball&#45;storage&#45;account (expand) -->
+<g id="node4" class="node" pointer-events="visible" data-name="[root] azurerm_storage_account.handball-storage-account (expand)">
+
+<polygon fill="none" stroke="black" points="1730.08,-180 1425.47,-180 1425.47,-144 1730.08,-144 1730.08,-180" style=""/>
+<text text-anchor="middle" x="1577.78" y="-157.8" font-family="Times,serif" font-size="14.00" style="">azurerm_storage_account.handball-storage-account</text>
+</g>
+<!-- [root] azurerm_storage_account.handball&#45;storage&#45;account (expand)&#45;&gt;[root] azurerm_resource_group.handball&#45;resource&#45;group (expand) -->
+<g id="edge8" class="edge" data-name="[root] azurerm_storage_account.handball-storage-account (expand)-&gt;[root] azurerm_resource_group.handball-resource-group (expand)">
+
+<path fill="none" stroke="black" d="M1538.32,-143.52C1517.41,-134.25 1491.52,-122.78 1469.27,-112.93" style=""/>
+<polygon fill="black" stroke="black" points="1470.96,-109.85 1460.39,-108.99 1468.12,-116.25 1470.96,-109.85" style=""/>
+</g>
+<!-- [root] azurerm_storage_blob.storage_blob_function (expand) -->
+<g id="node5" class="node" pointer-events="visible" data-name="[root] azurerm_storage_blob.storage_blob_function (expand)">
+
+<polygon fill="none" stroke="black" points="1868.92,-396 1598.63,-396 1598.63,-360 1868.92,-360 1868.92,-396" style=""/>
+<text text-anchor="middle" x="1733.78" y="-373.8" font-family="Times,serif" font-size="14.00" style="">azurerm_storage_blob.storage_blob_function</text>
+</g>
+<!-- [root] azurerm_storage_container.handball&#45;storage&#45;container (expand) -->
+<g id="node6" class="node" pointer-events="visible" data-name="[root] azurerm_storage_container.handball-storage-container (expand)">
+
+<polygon fill="none" stroke="black" points="1738.69,-252 1416.87,-252 1416.87,-216 1738.69,-216 1738.69,-252" style=""/>
+<text text-anchor="middle" x="1577.78" y="-229.8" font-family="Times,serif" font-size="14.00" style="">azurerm_storage_container.handball-storage-container</text>
+</g>
+<!-- [root] azurerm_storage_blob.storage_blob_function (expand)&#45;&gt;[root] azurerm_storage_container.handball&#45;storage&#45;container (expand) -->
+<g id="edge9" class="edge" data-name="[root] azurerm_storage_blob.storage_blob_function (expand)-&gt;[root] azurerm_storage_container.handball-storage-container (expand)">
+
+<path fill="none" stroke="black" d="M1774.37,-359.53C1788.89,-351.06 1803.66,-339.34 1811.78,-324 1819.27,-309.86 1821.76,-300.5 1811.78,-288 1800.21,-273.52 1768.42,-262.71 1731.87,-254.76" style=""/>
+<polygon fill="black" stroke="black" points="1732.9,-251.4 1722.4,-252.79 1731.48,-258.25 1732.9,-251.4" style=""/>
+</g>
+<!-- [root] azurerm_storage_container.handball&#45;storage&#45;container (expand)&#45;&gt;[root] azurerm_storage_account.handball&#45;storage&#45;account (expand) -->
+<g id="edge10" class="edge" data-name="[root] azurerm_storage_container.handball-storage-container (expand)-&gt;[root] azurerm_storage_account.handball-storage-account (expand)">
+
+<path fill="none" stroke="black" d="M1577.78,-215.7C1577.78,-208.41 1577.78,-199.73 1577.78,-191.54" style=""/>
+<polygon fill="black" stroke="black" points="1581.28,-191.62 1577.78,-181.62 1574.28,-191.62 1581.28,-191.62" style=""/>
+</g>
+<!-- [root] data.archive_file.function_zip (expand) -->
+<g id="node7" class="node" pointer-events="visible" data-name="[root] data.archive_file.function_zip (expand)">
+
+<polygon fill="none" stroke="black" points="403.7,-396 219.85,-396 219.85,-360 403.7,-360 403.7,-396" style=""/>
+<text text-anchor="middle" x="311.78" y="-373.8" font-family="Times,serif" font-size="14.00" style="">data.archive_file.function_zip</text>
+</g>
+<!-- [root] null_resource.function_dependencies (expand) -->
+<g id="node9" class="node" pointer-events="visible" data-name="[root] null_resource.function_dependencies (expand)">
+
+<polygon fill="none" stroke="black" points="873.03,-324 648.52,-324 648.52,-288 873.03,-288 873.03,-324" style=""/>
+<text text-anchor="middle" x="760.78" y="-301.8" font-family="Times,serif" font-size="14.00" style="">null_resource.function_dependencies</text>
+</g>
+<!-- [root] data.archive_file.function_zip (expand)&#45;&gt;[root] null_resource.function_dependencies (expand) -->
+<g id="edge11" class="edge" data-name="[root] data.archive_file.function_zip (expand)-&gt;[root] null_resource.function_dependencies (expand)">
+
+<path fill="none" stroke="black" d="M403.99,-362.62C471.49,-352.1 563.79,-337.71 637.59,-326.2" style=""/>
+<polygon fill="black" stroke="black" points="637.97,-329.69 647.31,-324.69 636.89,-322.77 637.97,-329.69" style=""/>
+</g>
+<!-- [root] provider[&quot;registry.terraform.io/hashicorp/archive&quot;] -->
+<g id="node10" class="node" pointer-events="visible" data-name="[root] provider[&quot;registry.terraform.io/hashicorp/archive&quot;]">
+
+<polygon fill="none" stroke="black" points="311.78,-324 17.85,-306 311.78,-288 605.71,-306 311.78,-324" style=""/>
+<text text-anchor="middle" x="311.78" y="-301.8" font-family="Times,serif" font-size="14.00" style="">provider["registry.terraform.io/hashicorp/archive"]</text>
+</g>
+<!-- [root] data.archive_file.function_zip (expand)&#45;&gt;[root] provider[&quot;registry.terraform.io/hashicorp/archive&quot;] -->
+<g id="edge12" class="edge" data-name="[root] data.archive_file.function_zip (expand)-&gt;[root] provider[&quot;registry.terraform.io/hashicorp/archive&quot;]">
+
+<path fill="none" stroke="black" d="M311.78,-359.7C311.78,-352.41 311.78,-343.73 311.78,-335.54" style=""/>
+<polygon fill="black" stroke="black" points="315.28,-335.62 311.78,-325.62 308.28,-335.62 315.28,-335.62" style=""/>
+</g>
+<!-- [root] data.azurerm_storage_account_blob_container_sas.storage_account_blob_container_sas (expand)&#45;&gt;[root] azurerm_storage_container.handball&#45;storage&#45;container (expand) -->
+<g id="edge13" class="edge" data-name="[root] data.azurerm_storage_account_blob_container_sas.storage_account_blob_container_sas (expand)-&gt;[root] azurerm_storage_container.handball-storage-container (expand)">
+
+<path fill="none" stroke="black" d="M1554.44,-287.7C1557.82,-280.07 1561.87,-270.92 1565.65,-262.4" style=""/>
+<polygon fill="black" stroke="black" points="1568.74,-264.05 1569.59,-253.49 1562.34,-261.21 1568.74,-264.05" style=""/>
+</g>
+<!-- [root] provider[&quot;registry.terraform.io/hashicorp/null&quot;] -->
+<g id="node12" class="node" pointer-events="visible" data-name="[root] provider[&quot;registry.terraform.io/hashicorp/null&quot;]">
+
+<polygon fill="none" stroke="black" points="886.78,-252 612.22,-234 886.78,-216 1161.33,-234 886.78,-252" style=""/>
+<text text-anchor="middle" x="886.78" y="-229.8" font-family="Times,serif" font-size="14.00" style="">provider["registry.terraform.io/hashicorp/null"]</text>
+</g>
+<!-- [root] null_resource.function_dependencies (expand)&#45;&gt;[root] provider[&quot;registry.terraform.io/hashicorp/null&quot;] -->
+<g id="edge15" class="edge" data-name="[root] null_resource.function_dependencies (expand)-&gt;[root] provider[&quot;registry.terraform.io/hashicorp/null&quot;]">
+
+<path fill="none" stroke="black" d="M792.25,-287.52C809.39,-277.99 830.73,-266.14 848.79,-256.11" style=""/>
+<polygon fill="black" stroke="black" points="850.35,-259.24 857.39,-251.33 846.95,-253.12 850.35,-259.24" style=""/>
+</g>
+<!-- [root] local.functionPath (expand) -->
+<g id="node16" class="node" pointer-events="visible" data-name="[root] local.functionPath (expand)">
+
+<ellipse fill="none" stroke="black" cx="451.78" cy="-234" rx="142.9" ry="18" style=""/>
+<text text-anchor="middle" x="451.78" y="-229.8" font-family="Times,serif" font-size="14.00" style="">[root] local.functionPath (expand)</text>
+</g>
+<!-- [root] null_resource.function_dependencies (expand)&#45;&gt;[root] local.functionPath (expand) -->
+<g id="edge14" class="edge" data-name="[root] null_resource.function_dependencies (expand)-&gt;[root] local.functionPath (expand)">
+
+<path fill="none" stroke="black" d="M683.6,-287.52C636.85,-276.93 577.37,-263.45 530.37,-252.8" style=""/>
+<polygon fill="black" stroke="black" points="531.32,-249.43 520.79,-250.63 529.77,-256.26 531.32,-249.43" style=""/>
+</g>
+<!-- [root] provider[&quot;registry.terraform.io/hashicorp/archive&quot;] (close) -->
+<g id="node17" class="node" pointer-events="visible" data-name="[root] provider[&quot;registry.terraform.io/hashicorp/archive&quot;] (close)">
+
+<ellipse fill="none" stroke="black" cx="260.78" cy="-450" rx="260.56" ry="18" style=""/>
+<text text-anchor="middle" x="260.78" y="-445.8" font-family="Times,serif" font-size="14.00" style="">[root] provider["registry.terraform.io/hashicorp/archive"] (close)</text>
+</g>
+<!-- [root] provider[&quot;registry.terraform.io/hashicorp/archive&quot;] (close)&#45;&gt;[root] data.archive_file.function_zip (expand) -->
+<g id="edge16" class="edge" data-name="[root] provider[&quot;registry.terraform.io/hashicorp/archive&quot;] (close)-&gt;[root] data.archive_file.function_zip (expand)">
+
+<path fill="none" stroke="black" d="M273.38,-431.7C279.19,-423.73 286.21,-414.1 292.64,-405.26" style=""/>
+<polygon fill="black" stroke="black" points="295.37,-407.47 298.42,-397.33 289.71,-403.35 295.37,-407.47" style=""/>
+</g>
+<!-- [root] provider[&quot;registry.terraform.io/hashicorp/azurerm&quot;] (close) -->
+<g id="node18" class="node" pointer-events="visible" data-name="[root] provider[&quot;registry.terraform.io/hashicorp/azurerm&quot;] (close)">
+
+<ellipse fill="none" stroke="black" cx="1315.78" cy="-450" rx="263.99" ry="18" style=""/>
+<text text-anchor="middle" x="1315.78" y="-445.8" font-family="Times,serif" font-size="14.00" style="">[root] provider["registry.terraform.io/hashicorp/azurerm"] (close)</text>
+</g>
+<!-- [root] provider[&quot;registry.terraform.io/hashicorp/azurerm&quot;] (close)&#45;&gt;[root] azurerm_linux_function_app.handball&#45;linux&#45;function&#45;app (expand) -->
+<g id="edge17" class="edge" data-name="[root] provider[&quot;registry.terraform.io/hashicorp/azurerm&quot;] (close)-&gt;[root] azurerm_linux_function_app.handball-linux-function-app (expand)">
+
+<path fill="none" stroke="black" d="M1309.1,-431.7C1306.19,-424.15 1302.71,-415.12 1299.45,-406.68" style=""/>
+<polygon fill="black" stroke="black" points="1302.78,-405.59 1295.92,-397.52 1296.25,-408.11 1302.78,-405.59" style=""/>
+</g>
+<!-- [root] provider[&quot;registry.terraform.io/hashicorp/azurerm&quot;] (close)&#45;&gt;[root] azurerm_storage_blob.storage_blob_function (expand) -->
+<g id="edge18" class="edge" data-name="[root] provider[&quot;registry.terraform.io/hashicorp/azurerm&quot;] (close)-&gt;[root] azurerm_storage_blob.storage_blob_function (expand)">
+
+<path fill="none" stroke="black" d="M1412.46,-432.81C1473.9,-422.52 1553.75,-409.15 1618.48,-398.31" style=""/>
+<polygon fill="black" stroke="black" points="1618.78,-401.81 1628.06,-396.7 1617.62,-394.9 1618.78,-401.81" style=""/>
+</g>
+<!-- [root] provider[&quot;registry.terraform.io/hashicorp/null&quot;] (close) -->
+<g id="node19" class="node" pointer-events="visible" data-name="[root] provider[&quot;registry.terraform.io/hashicorp/null&quot;] (close)">
+
+<ellipse fill="none" stroke="black" cx="786.78" cy="-450" rx="247.27" ry="18" style=""/>
+<text text-anchor="middle" x="786.78" y="-445.8" font-family="Times,serif" font-size="14.00" style="">[root] provider["registry.terraform.io/hashicorp/null"] (close)</text>
+</g>
+<!-- [root] provider[&quot;registry.terraform.io/hashicorp/null&quot;] (close)&#45;&gt;[root] null_resource.function_dependencies (expand) -->
+<g id="edge19" class="edge" data-name="[root] provider[&quot;registry.terraform.io/hashicorp/null&quot;] (close)-&gt;[root] null_resource.function_dependencies (expand)">
+
+<path fill="none" stroke="black" d="M783.59,-431.59C779.2,-407.61 771.24,-364.14 765.98,-335.42" style=""/>
+<polygon fill="black" stroke="black" points="769.43,-334.81 764.18,-325.6 762.54,-336.07 769.43,-334.81" style=""/>
+</g>
+<!-- [root] root -->
+<g id="node20" class="node" pointer-events="visible" data-name="[root] root">
+
+<ellipse fill="none" stroke="black" cx="786.78" cy="-522" rx="50.99" ry="18" style=""/>
+<text text-anchor="middle" x="786.78" y="-517.8" font-family="Times,serif" font-size="14.00" style="">[root] root</text>
+</g>
+<!-- [root] root&#45;&gt;[root] provider[&quot;registry.terraform.io/hashicorp/archive&quot;] (close) -->
+<g id="edge20" class="edge" data-name="[root] root-&gt;[root] provider[&quot;registry.terraform.io/hashicorp/archive&quot;] (close)">
+
+<path fill="none" stroke="black" d="M739.64,-514.73C661.36,-504.31 501.98,-483.1 388.62,-468.01" style=""/>
+<polygon fill="black" stroke="black" points="389.32,-464.58 378.95,-466.73 388.4,-471.52 389.32,-464.58" style=""/>
+</g>
+<!-- [root] root&#45;&gt;[root] provider[&quot;registry.terraform.io/hashicorp/azurerm&quot;] (close) -->
+<g id="edge21" class="edge" data-name="[root] root-&gt;[root] provider[&quot;registry.terraform.io/hashicorp/azurerm&quot;] (close)">
+
+<path fill="none" stroke="black" d="M833.72,-514.79C912.22,-504.4 1072.72,-483.16 1186.94,-468.05" style=""/>
+<polygon fill="black" stroke="black" points="1187.24,-471.54 1196.69,-466.76 1186.32,-464.6 1187.24,-471.54" style=""/>
+</g>
+<!-- [root] root&#45;&gt;[root] provider[&quot;registry.terraform.io/hashicorp/null&quot;] (close) -->
+<g id="edge22" class="edge" data-name="[root] root-&gt;[root] provider[&quot;registry.terraform.io/hashicorp/null&quot;] (close)">
+
+<path fill="none" stroke="black" d="M786.78,-503.7C786.78,-496.41 786.78,-487.73 786.78,-479.54" style=""/>
+<polygon fill="black" stroke="black" points="790.28,-479.62 786.78,-469.62 783.28,-479.62 790.28,-479.62" style=""/>
+</g>
+</g>
+</svg>
