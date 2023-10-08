@@ -62,20 +62,18 @@ app.timer('FetchHandballData', {
         const nextGames = gamesOfTeam
             .filter(game => game.dateCompare >= now && game.dateCompare <= in10Days )
         
-        const connectionString = process.env["AzureWebJobsStorage"]
+        const connectionString = process.env["AzureWebJobsStorage"];
+        const containerName = process.env["STORAGE_CONTAINER_NAME"];
         const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
-        const containerClient = blobServiceClient.getContainerClient('function');
+        const containerClient = blobServiceClient.getContainerClient(containerName);
         const blobClient = containerClient.getBlockBlobClient('allgames.json');
         await blobClient.upload(JSON.stringify(gamesOfTeam), JSON.stringify(gamesOfTeam).length);
-        context.log('all games uploaded successfully.');
+        context.log('all games stored successfully.');
 
         const nextblobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
         const nextcontainerClient = nextblobServiceClient.getContainerClient('querydata');
         const nextblobClient = nextcontainerClient.getBlockBlobClient('nextgames.json');
         await nextblobClient.upload(JSON.stringify(nextGames), JSON.stringify(nextGames).length);
-        context.log('next games uploaded successfully.');
-
-        let result = gamesOfTeam.map(game => `${game.team}: ${game.match} ${game.place} ${game.day},${game.date} um ${game.time} Uhr`)
-        return { body: `${result.join("\n")}` };
+        context.log('next games stored successfully.');
     }
 });
