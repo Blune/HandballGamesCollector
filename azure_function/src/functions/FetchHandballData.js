@@ -1,9 +1,11 @@
 const { app } = require('@azure/functions');
+const { BlobServiceClient } = require("@azure/storage-blob");
+const fetch = require('node-fetch');
 
 app.timer('FetchHandballData', {
-    schedule: '0 0 22 * * 0',
+    schedule: '0 44 4 * * 1',
     handler: async (myTimer, context) => {
-        context.log(`Http function processed request for url "${request.url}"`);
+        context.log(`Starting scheduled function`);
 
         const now = new Date();
         const mondayDate = new Date(now);
@@ -61,6 +63,16 @@ app.timer('FetchHandballData', {
         in10Days.setDate(now.getDate() + 10);
         const nextGames = gamesOfTeam
             .filter(game => game.dateCompare >= now && game.dateCompare <= in10Days )
+            .sort((a, b) => new Date(a.dateCompare) - new Date(b.dateCompare))
+            .reduce((accumulator, match) => {
+                const team = match.team;
+                if (!accumulator.has(team) || new Date(match.dateCompare) > new Date(accumulator.get(team).dateCompare)) {
+                  accumulator.set(team, match);
+                }
+                return accumulator;
+              }, new Map());
+
+        const nextMatchesArray = Array.from(nextGames.values());
         
         const connectionString = process.env["AzureWebJobsStorage"];
         const containerName = process.env["STORAGE_CONTAINER_NAME"];
@@ -71,9 +83,9 @@ app.timer('FetchHandballData', {
         context.log('all games stored successfully.');
 
         const nextblobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
-        const nextcontainerClient = nextblobServiceClient.getContainerClient('querydata');
+        const nextcontainerClient = nextblobServiceClient.getContainerClient(containerName);
         const nextblobClient = nextcontainerClient.getBlockBlobClient('nextgames.json');
-        await nextblobClient.upload(JSON.stringify(nextGames), JSON.stringify(nextGames).length);
+        await nextblobClient.upload(JSON.stringify(nextMatchesArray), JSON.stringify(nextMatchesArray).length);
         context.log('next games stored successfully.');
     }
 });
