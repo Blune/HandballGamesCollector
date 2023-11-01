@@ -10,6 +10,9 @@ So these steps happen:
 2. An azure function will collect all the dates and store it in a blob container regularly
 3. A local Progressive Web App will load that data and display it on my smartphone
 
-## What terraform creates
+So basically like this:
+![Workflow graph](./workflow.png)
+
+## What terraform creates in detail
 
 ![Terraform graph](./terraform_resources.svg)
