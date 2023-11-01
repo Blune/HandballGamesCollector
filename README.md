@@ -19,5 +19,5 @@ So basically like this:
 
 ## Display the data in a Progressive Wep App
 
-This is a preview how the dummy PWA looks at the moment
+This is a preview how the dummy PWA looks at the moment    
 ![PWA](./pwa.png)
