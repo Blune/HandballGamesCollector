@@ -1,14 +1,16 @@
 # HandballGamesCollector
 Collects and stores the handball games via azure
 
+## Idea
 I need to know the dates of a certain Handball team.
-Since I tend to forget to carry the card with all the dates with me this project should query the dates for me and store them in an azure storage.
-The idea is, that all of this should happen automatically.
+Since I tend to forget to carry the card with all the dates with me this project should query the dates for me and store them in an azure blob storage.
+To follow the devops principles all of this should happen automatically.
 So these steps happen:
 
 1. Terraform creates all the resources in azure
-2. An azure function will collect all the dates and store it in a blob container regularly
-3. A local Progressive Web App will load that data and display it on my smartphone
+2. An azure function will collect all the dates, filter them for the team i am interested in and store it in a blob container regularly
+3. Terraform will create Shared Access Signatures and place them in html files so that the data can be consumed.
+4. A Progressive Web App will be hosted on Azure and display it on my smartphone
 
 So basically like this:
 ![Workflow graph](./workflow.png)
