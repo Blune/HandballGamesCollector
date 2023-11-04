@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#053347">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="stylesheet" href="/css/app.css">
+    <title>Anstehende Spiele TSV Laichingen</title>
+</head>
+
+<body>
+    <div class="header">
+        <h1 id="headerText">Header</h1>
+    </div>
+
+    <div class="content">
+        <div id="PerTeam" class="tabcontent">
+            <table id="json-table">
+                <thead>
+                    <tr>
+                        <th>Spiel</th>
+                        <th>Ort</th>
+                        <th>Datum</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <div id="OpenGames" class="tabcontent">
+            <table id="unplayed-games-json-table">
+                <thead>
+                    <tr>
+                        <th>Spiel</th>
+                        <th>Ort</th>
+                        <th>Datum</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <div id="AllGames" class="tabcontent">
+            <table id="all-games-table">
+                <thead>
+                    <tr>
+                        <th>Spiel</th>
+                        <th>Ort</th>
+                        <th>Datum</th>
+                        <th>Ergebnis</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="tab footer">
+        <button class="tablinks" onclick="openTab(event, 'PerTeam', 'Pro Team')" id="defaultOpen"><img
+                src="/images/1.png" width="40" height="40" alt="Pro Team"><br />Pro Team</button>
+        <button class="tablinks" onclick="openTab(event, 'OpenGames', 'Kommende Spiele')"><img src="/images/2.png"
+                width="40" height="40" alt="Kommende Spiele"><br />Kommende Spiele</button>
+        <button class="tablinks" onclick="openTab(event, 'AllGames', 'Alle Spiele')"><img src="/images/3.png" width="40"
+                height="40" alt="Alle Spiele"><br />Alle Spiele</button>
+    </div>
+    <script src="urls.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/serviceworker.js', { scope: '/' });
+        }
+        const tableBody = document.querySelector('#json-table tbody');
+        const allGamestableBody = document.querySelector('#all-games-table tbody');
+        const unplayedGamestableBody = document.querySelector('#unplayed-games-json-table tbody');
+
+        fetch(nextGamesUrl, {
+            method: "GET", // *GET, POST, PUT, DELETE, etc.
+            mode: "cors", // no-cors, *cors, same-origin
+            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: "same-origin", // include, *same-origin, omit
+            headers: {
+                "Content-Type": "application/json",
+            },
+            redirect: "follow", // manual, *follow, error
+            referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                data.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${getGame(item.upperteamname,item.opponent)}</td>
+                        <td>${item.place.substring(3)}</td>
+                        <td>${getDateString(new Date(item.dateCompare))}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+
+        //all games
+        const now = new Date();
+        fetch(allGamesUrl, {
+            method: "GET", // *GET, POST, PUT, DELETE, etc.
+            mode: "cors", // no-cors, *cors, same-origin
+            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: "same-origin", // include, *same-origin, omit
+            headers: {
+                "Content-Type": "application/json",
+            },
+            redirect: "follow", // manual, *follow, error
+            referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                data.forEach(item => {
+                    const row = document.createElement('tr');
+
+                    row.innerHTML = `
+                        <td>${getGame(item.upperteamname,item.opponent)}</td>
+                        <td>${item.place.substring(3)}</td>
+                        <td>${getDateString(new Date(item.dateCompare))}</td>
+                        <td>${item.goals}:${item.opponentgoals}</td>
+                    `;
+                    allGamestableBody.appendChild(row);
+                    const gameDate = new Date(item.dateCompare);
+                    if (gameDate > now) {
+                        const row2 = document.createElement('tr');
+                        row2.innerHTML = `
+                        <td>${getGame(item.upperteamname,item.opponent)}</td>
+                        <td>${item.place.substring(3)}</td>
+                        <td>${getDateString(new Date(item.dateCompare))}</td>
+                    `;
+                        unplayedGamestableBody.appendChild(row2);
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+
+        function getGame(team, opponent){
+            return `${team}<br>vs<br>${opponent}`
+        }
+
+        function getDateString(datetime) {
+            const date = datetime.toLocaleString('de-DE', {
+                timeZone: 'UTC',
+                weekday: 'short',
+                day: 'numeric',
+                month: 'numeric',
+            });
+            const time = datetime.toLocaleString('de-DE', {
+                timeZone: 'UTC',
+                hour: 'numeric',
+                minute: 'numeric'
+            })
+            return `${date}<br>${time} Uhr`;
+        }
+
+        function openTab(evt, tabName, displayName) {
+            var i, tabcontent, tablinks;
+            document.getElementById("headerText").innerHTML = displayName;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        document.getElementById("defaultOpen").click();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+{
+    "name":"LA Handball",
+    "short_name":"LA HB",
+    "start_url":"index.html",
+    "display":"standalone",
+    "background_color":"#27348B",
+    "theme_color":"#27348B",
+    "scope": ".",
+    "description":"Anstehende Spiele des TSV Laichingen",
+    "icons":[
+        {
+        "src":"images/icon192x192.png",                     
+        "sizes":"192x192",
+        "type":"image/png"
+        },
+        {
+        "src":"images/icon512x512.png",
+        "sizes":"512x512",
+        "type":"image/png"
+        }
+   ]
+}

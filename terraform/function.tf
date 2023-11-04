@@ -11,9 +11,13 @@ depends_on = [ azurerm_storage_account.handball-storage-account, azurerm_storage
 
   app_settings = {
     FUNCTIONS_WORKER_RUNTIME = "node"
-    WEBSITE_RUN_FROM_PACKAGE = "https://${azurerm_storage_account.handball-storage-account.name}.blob.core.windows.net/${azurerm_storage_container.handball-storage-container.name}/${azurerm_storage_blob.storage_blob_function.name}${data.azurerm_storage_account_blob_container_sas.sas.sas}"
+    WEBSITE_RUN_FROM_PACKAGE = "https://${azurerm_storage_account.handball-storage-account.name}.blob.core.windows.net/${azurerm_storage_container.handball-deployments-storage-container.name}/${azurerm_storage_blob.storage_blob_function.name}${data.azurerm_storage_account_blob_container_sas.sas.sas}"
     APPINSIGHTS_INSTRUMENTATIONKEY = "${azurerm_application_insights.application_insights.instrumentation_key}"
-    STORAGE_CONTAINER_NAME = "${azurerm_storage_container.handball-storage-container.name}"
+    STORAGE_CONTAINER_NAME = "${azurerm_storage_container.handball-deployments-storage-container.name}"
+    QUERY_URL = "https://spo.handball4all.de/service/if_g_json.php?"   
+    TEAM_CITY = "Laichingen"   
+    TEAM_REGION_BAWUE = "3"   
+    TEAM_ORG_BODENSEE_DONAU = "12"
   }
 
   site_config {
@@ -25,7 +29,7 @@ depends_on = [ azurerm_storage_account.handball-storage-account, azurerm_storage
 
 data "azurerm_storage_account_blob_container_sas" "sas" {
   connection_string = azurerm_storage_account.handball-storage-account.primary_connection_string
-  container_name    = azurerm_storage_container.handball-storage-container.name
+  container_name    = azurerm_storage_container.handball-deployments-storage-container.name
 
   start  = "2023-01-01T00:00:00Z"
   expiry = "2024-01-01T00:00:00Z"
@@ -39,8 +43,3 @@ data "azurerm_storage_account_blob_container_sas" "sas" {
     list   = true
   }
 }
-
-# output "sas_url_query_string" {
-#   sensitive = true
-#   value = data.azurerm_storage_account_blob_container_sas.storage_account_blob_container_sas.sas
-# }

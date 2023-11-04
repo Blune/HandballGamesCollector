@@ -6,6 +6,7 @@ locals {
   name         = "handball"
   location     = "Germany West Central"
   node_version = "16"
+  currentDate  = timestamp() #"2023-01-01T00:00:00Z"
 }
 
 resource "azurerm_resource_group" "handball-resource-group" {
@@ -19,4 +20,8 @@ resource "azurerm_service_plan" "handball-app-service-plan" {
   location            = azurerm_resource_group.handball-resource-group.location
   os_type             = "Linux"
   sku_name            = "Y1"
+}
+
+output "testing" {
+  value = local.currentDate
 }

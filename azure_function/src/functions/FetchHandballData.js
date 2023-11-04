@@ -3,17 +3,18 @@ const { BlobServiceClient } = require("@azure/storage-blob");
 const fetch = require('node-fetch');
 
 app.timer('FetchHandballData', {
-    schedule: '0 00 23 * * 4',
+    schedule: '0 00 18 * * 6,0',
     handler: async (myTimer, context) => {
         context.log(`Starting scheduled function`);
 
-        const city = "Laichingen"
         const now = new Date();
         const mondayOfThisWeek = getDateOfMonday(now);
         let allDates = await getMatchDates(mondayOfThisWeek);
         const allGames = await getAllGames(allDates);
 
+        const city = process.env["TEAM_CITY"]
         const teamLA = `TSV ${city}`
+
         let gamesOfTeam = allGames
             .flatMap(json => json[0].content.classes)
             .filter(c => c.games.length > 0)
@@ -24,9 +25,10 @@ app.timer('FetchHandballData', {
             .flatMap(c => c.games)
             .filter(game => game.gHomeTeam.startsWith(teamLA) || game.gGuestTeam.startsWith(teamLA))
             .map(element => {
-                const teamNames = mapTeamName(element.team);
-                const homeGame = element.gHomeTeam.startsWith(teamLA);
                 const dateTime = getDateTime(element.gDate, element.gTime);
+                const homeGame = element.gHomeTeam.startsWith(teamLA);
+                const n = homeGame ? element.gHomeTeam : element.gGuestTeam
+                const teamNames = mapTeamName(element.team, n);
                 return {
                     team: element.team,
                     teamname: teamNames.long,
@@ -50,9 +52,7 @@ app.timer('FetchHandballData', {
 
         const containerClient = getContainerClient();
         storeInContainer(containerClient, gamesOfTeam, 'allgames.json');
-        context.log('all games stored successfully.');
         storeInContainer(containerClient, nextMatchesArray, 'nextgames.json');
-        context.log('next games stored successfully.');
     }
 });
 
@@ -84,16 +84,17 @@ function getDateOfMonday(now) {
     return mondayOfThisWeek;
 }
 
-function mapTeamName(team) {
+function mapTeamName(team , teamname) {
     switch (team) {
         case 'M-KLA-D':
             return { short: 'M1', long: 'Männer 1', upper: 'MÄNNER 1' };
         case 'M-KLB-D':
             return { short: 'M2', long: 'Männer 2', upper: 'MÄNNER 2' };
         case 'F-KLA-D':
-            return { short: 'D1', long: 'Damen 1', upper: 'DAMEN 1' };
-        case 'F-KLB-D':
-            return { short: 'D2', long: 'Damen 2', upper: 'DAMEN 2' };
+            if(teamname == 'TSV Laichingen 2')
+                return { short: 'D2', long: 'Damen 2', upper: 'DAMEN 2' };
+            else
+                return { short: 'D1', long: 'Damen 1', upper: 'DAMEN 1' };
         case 'gJD-KLC-1':
             return { short: 'gD', long: 'Gemischte D-Jugend', upper: 'gD-JUGEND' };
         case 'wJB-KL-1':
@@ -104,6 +105,10 @@ function mapTeamName(team) {
             return { short: 'mB', long: 'Männliche B-Jugend', upper: 'mB-JUGEND' };
         case 'mJC-KLC-1':
             return { short: 'mC', long: 'Männliche C-Jugend', upper: 'mC-JUGEND' };
+        case 'gJF-1':
+            return { short: 'gF', long: 'Gemischte F-Jugend', upper: 'gF-JUGEND' };
+        case 'F-Pok-B':
+            return { short: 'wP', long: 'Pokalspiel D1', upper: 'DAMEN 1 (POKAL)' };
         default:
             return { short: '', long: team, upper: team };
     }
@@ -122,13 +127,13 @@ function getDateTime(date, time) {
 }
 
 function getNextMatches(now, gamesOfTeam) {
-    const in10Days = new Date(now);
-    in10Days.setDate(now.getDate() + 10);
+    const in15Days = new Date(now);
+    in15Days.setDate(now.getDate() + 60);
     const nextGames = gamesOfTeam
-        .filter(game => game.dateCompare >= now && game.dateCompare <= in10Days)
+        .filter(game => game.dateCompare >= now && game.dateCompare <= in15Days)
         .reduce((accumulator, match) => {
             const id = `${match.team}-${match.home}`;
-            if (!accumulator.has(id) || new Date(match.dateCompare) > new Date(accumulator.get(id).dateCompare)) {
+            if (!accumulator.has(id) || new Date(match.dateCompare) < new Date(accumulator.get(id).dateCompare)) {
                 accumulator.set(id, match);
             }
             return accumulator;
