@@ -81,8 +81,8 @@ data "azurerm_storage_account_blob_container_sas" "function_results_sas" {
   connection_string = azurerm_storage_account.handball-storage-account.primary_connection_string
   container_name    = azurerm_storage_container.handball-storage-container.name
 
-  start  = "2023-01-01T00:00:00Z"
-  expiry = "2024-01-01T00:00:00Z"
+  start  = local.current_date
+  expiry = local.two_years_later_date
 
   permissions {
     read   = true

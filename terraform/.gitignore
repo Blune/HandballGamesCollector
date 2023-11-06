@@ -1,6 +1,7 @@
 terraform.tfstate
 terraform.tfstate.backup
 .teraform.lock.hcl
+.teraform.tfstate.lock.info
 function.zip
 .terraform
 graph.dot
