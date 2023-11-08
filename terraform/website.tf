@@ -16,7 +16,6 @@ resource "azurerm_storage_container" "handball-storage-web-container" {
 
 
 resource "azurerm_storage_blob" "website-all-blob" {
-  # depends_on = [ local_file.output_urls ]
   for_each = fileset("${local.websitePath}/", "**/*")
 
   name                   = each.key
