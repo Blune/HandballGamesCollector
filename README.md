@@ -13,13 +13,13 @@ So these steps happen:
 4. A Progressive Web App will be hosted on Azure and display it on my smartphone
 
 So basically like this:
-![Workflow graph](./documentation/workflow.png)
+![Workflow graph](documentation/workflow.png)
 
 ## What terraform creates in detail
 
-![Terraform graph](./documentation/terraform_resources.svg)
+![Terraform graph](documentation/terraform_resources.svg)
 
 ## Display the data in a Progressive Wep App
 
 This is a preview how the dummy PWA looks at the moment    
-![PWA](./documentation/pwa.png)
+![PWA](documentation/pwa.png)
