@@ -2,7 +2,7 @@ locals {
   functionPath = abspath("${path.root}/../azure_function")
 }
 
-resource "null_resource" "function_dependencies" {
+resource "null_resource" "create_function_package" {
   provisioner "local-exec" {
     command = "cd ${local.functionPath}/ && npm install"
   }
