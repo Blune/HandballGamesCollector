@@ -1,3 +1,0 @@
-const allGamesUrl = '${allGamesJson}'
-const nextGamesUrl = '${nextGamesJson}'
-
