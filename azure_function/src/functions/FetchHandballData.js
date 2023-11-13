@@ -3,7 +3,7 @@ const { BlobServiceClient } = require("@azure/storage-blob");
 const fetch = require('node-fetch');
 
 app.timer('FetchHandballData', {
-    schedule: '0 00 18 * * 6,0',
+    schedule: '0 00 18 * * 6,0,1',
     handler: async (myTimer, context) => {
         context.log(`Starting scheduled function`);
 

@@ -20,5 +20,5 @@ data "archive_file" "function_zip" {
   output_path = "${path.module}/function.zip"
   source_dir  = "${local.functionPath}/"
 
-  depends_on = [null_resource.function_dependencies]
+  depends_on = [null_resource.create_function_package]
 }
