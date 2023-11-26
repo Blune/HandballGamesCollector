@@ -3,58 +3,62 @@ const { BlobServiceClient } = require("@azure/storage-blob");
 const fetch = require('node-fetch');
 
 app.timer('FetchHandballData', {
-    schedule: '0 00 18 * * 6,0,1',
+    schedule: '0 00 18 * * 6,0',
     handler: async (myTimer, context) => {
         context.log(`Starting scheduled function`);
-
+        const city = process.env["TEAM_CITY"];
         const now = new Date();
-        const mondayOfThisWeek = getDateOfMonday(now);
-        let allDates = await getMatchDates(mondayOfThisWeek);
-        const allGames = await getAllGames(allDates);
-
-        const city = process.env["TEAM_CITY"]
-        const teamLA = `TSV ${city}`
-
-        let gamesOfTeam = allGames
-            .flatMap(json => json[0].content.classes)
-            .filter(c => c.games.length > 0)
-            .map(c => {
-                c.games.forEach(game => game.team = c.gClassSname);
-                return c;
-            })
-            .flatMap(c => c.games)
-            .filter(game => game.gHomeTeam.startsWith(teamLA) || game.gGuestTeam.startsWith(teamLA))
-            .map(element => {
-                const dateTime = getDateTime(element.gDate, element.gTime);
-                const homeGame = element.gHomeTeam.startsWith(teamLA);
-                const n = homeGame ? element.gHomeTeam : element.gGuestTeam
-                const teamNames = mapTeamName(element.team, n);
-                return {
-                    team: element.team,
-                    teamname: teamNames.long,
-                    shortteamname: teamNames.short,
-                    upperteamname: teamNames.upper,
-                    home: homeGame ? element.gHomeTeam : element.gGuestTeam,
-                    opponent: homeGame ? element.gGuestTeam : element.gHomeTeam,
-                    goals: homeGame ? element.gHomeGoals : element.gHomeGoals_1,
-                    opponentgoals: homeGame ? element.gHomeGoals_1 : element.gHomeGoals,
-                    date: element.gDate,
-                    dateCompare: dateTime,
-                    day: element.gWDay,
-                    time: element.gTime,
-                    matchtype: element.gGymnasiumTown == city ? "H" : "A",
-                    match: `${element.gHomeTeam} vs ${element.gGuestTeam}`,
-                    place: `in ${element.gGymnasiumTown}`
-                };
-            });
-
-        const nextMatchesArray = getNextMatches(now, gamesOfTeam);
+        let gamesOfTeam = await getAllGamesOfTeam(now, city);
+        const nextMatchPerTeam = getNextMatches(now, gamesOfTeam);
 
         const containerClient = getContainerClient();
         storeInContainer(containerClient, gamesOfTeam, 'allgames.json');
-        storeInContainer(containerClient, nextMatchesArray, 'nextgames.json');
+        storeInContainer(containerClient, nextMatchPerTeam, 'nextgames.json');
     }
 });
+
+async function getAllGamesOfTeam(now, city) {
+    const mondayOfThisWeek = getDateOfMonday(now);
+    let allDates = await getMatchDates(mondayOfThisWeek);
+    const allGames = await getAllGames(allDates);
+
+    
+    const teamLA = `TSV ${city}`;
+
+    let gamesOfTeam = allGames
+        .flatMap(json => json[0].content.classes)
+        .filter(c => c.games.length > 0)
+        .map(c => {
+            c.games.forEach(game => game.team = c.gClassSname);
+            return c;
+        })
+        .flatMap(c => c.games)
+        .filter(game => game.gHomeTeam.startsWith(teamLA) || game.gGuestTeam.startsWith(teamLA))
+        .map(element => {
+            const dateTime = getDateTime(element.gDate, element.gTime);
+            const homeGame = element.gHomeTeam.startsWith(teamLA);
+            const n = homeGame ? element.gHomeTeam : element.gGuestTeam;
+            const teamNames = mapTeamName(element.team, n);
+            return {
+                team: element.team,
+                teamname: teamNames.long,
+                shortteamname: teamNames.short,
+                upperteamname: teamNames.upper,
+                home: homeGame ? element.gHomeTeam : element.gGuestTeam,
+                opponent: homeGame ? element.gGuestTeam : element.gHomeTeam,
+                goals: homeGame ? element.gHomeGoals : element.gHomeGoals_1,
+                opponentgoals: homeGame ? element.gHomeGoals_1 : element.gHomeGoals,
+                date: element.gDate,
+                dateCompare: dateTime,
+                day: element.gWDay,
+                time: element.gTime,
+                matchtype: element.gGymnasiumTown == city ? "H" : "A",
+                match: `${element.gHomeTeam} vs ${element.gGuestTeam}`,
+                place: `in ${element.gGymnasiumTown}`
+            };
+        });
+    return gamesOfTeam;
+}
 
 async function getAllGames(allDates) {
     const urls = allDates.map(date => getQuery(date));
@@ -126,6 +130,7 @@ function getDateTime(date, time) {
     return new Date(year, monthIndex, day, hours, minutes);
 }
 
+
 function getNextMatches(now, gamesOfTeam) {
     const in15Days = new Date(now);
     in15Days.setDate(now.getDate() + 60);
@@ -155,3 +160,5 @@ function getContainerClient() {
         .fromConnectionString(process.env["AzureWebJobsStorage"])
         .getContainerClient(process.env["STORAGE_CONTAINER_NAME"]);
 }
+
+module.exports = {getDateTime, mapTeamName, getNextMatches, getDateOfMonday};

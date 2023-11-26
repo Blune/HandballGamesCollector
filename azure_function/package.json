@@ -4,12 +4,15 @@
   "description": "",
   "scripts": {
     "start": "func start",
-    "test": "echo \"No tests yet...\""
+    "test": "jest --collectCoverage"
   },
   "dependencies": {
     "@azure/functions": "^4.0.0",
     "@azure/storage-blob": "^12.16.0",
     "node-fetch": "^2.6.1"
   },
-  "main": "src/functions/*.js"
+  "main": "src/functions/*.js",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
 }
