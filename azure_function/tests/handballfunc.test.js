@@ -1,7 +1,9 @@
 const handball = require('../src/functions/FetchHandballData.js');
 const fetch = require('node-fetch');
+const { BlobServiceClient } = require('@azure/storage-blob');
 
 jest.mock('node-fetch');
+jest.mock('@azure/storage-blob');
 
 describe('getMatchDates', () => {
   it('should return the mondays of weeks with matches', async () => {
@@ -70,6 +72,37 @@ describe('getDateOfMonday', () => {
   test('should return the date of monday of the current week', async () => {
     expect(handball.getDateOfMonday(new Date(2023, 10, 11)))
       .toStrictEqual("2023-11-05");
+  });
+});
+
+describe('storeInContainer function', () => {
+  it('uploads data to the container', async () => {
+    const mockUpload = jest.fn().mockResolvedValue('Mocked upload result');
+    const mockGetBlockBlobClient = jest.fn().mockReturnValueOnce({ upload: mockUpload });
+    const mockContainerClient = { getBlockBlobClient: mockGetBlockBlobClient };
+
+    handball.storeInContainer(mockContainerClient, { key: 'value' }, 'mockedBlobName');
+
+    expect(mockGetBlockBlobClient).toHaveBeenCalledWith('mockedBlobName');
+    expect(mockUpload).toHaveBeenCalledWith(
+      JSON.stringify({ key: 'value' }),
+      JSON.stringify({ key: 'value' }).length
+    );
+  });
+});
+
+describe('getContainerClient', () => {
+  it('returns a mocked container client', () => {
+    const mockContainerClient = {};
+
+    BlobServiceClient.fromConnectionString.mockReturnValueOnce({
+      getContainerClient: jest.fn().mockReturnValueOnce(mockContainerClient),
+    });
+
+    const containerClient = handball.getContainerClient('mockedConnectionString', 'mockedContainerName');
+
+    expect(BlobServiceClient.fromConnectionString).toHaveBeenCalledWith('mockedConnectionString');
+    expect(containerClient).toBe(mockContainerClient);
   });
 });
 
@@ -231,7 +264,6 @@ describe('getNextGamesOfTeam', () => {
         "upperteamname": "Liga2"
       }]
     const games = await handball.getNextMatches(new Date(2023, 10, 1), mockData)
-    console.log(games);
     expect(games.length).toEqual(2);
     expect(games).toEqual(
       [

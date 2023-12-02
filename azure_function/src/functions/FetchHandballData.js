@@ -170,5 +170,7 @@ module.exports = {
     getDateOfMonday,
     getAllGames,
     getMatchDates,
-    getAllGamesOfTeam
+    getAllGamesOfTeam,
+    getContainerClient,
+    storeInContainer
 };
