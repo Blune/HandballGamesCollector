@@ -7,22 +7,23 @@ app.timer('FetchHandballData', {
     handler: async (myTimer, context) => {
         context.log(`Starting scheduled function`);
         const city = process.env["TEAM_CITY"];
+        const storage = process.env["AzureWebJobsStorage"];
+        const containerName = process.env["STORAGE_CONTAINER_NAME"];
+
         const now = new Date();
-        let gamesOfTeam = await getAllGamesOfTeam(now, city);
+        const mondayOfThisWeek = getDateOfMonday(now);
+        const allDates = await getMatchDates(mondayOfThisWeek, fetch);
+        const allGames = await getAllGames(allDates);
+        let gamesOfTeam = await getAllGamesOfTeam(allGames, city);
         const nextMatchPerTeam = getNextMatches(now, gamesOfTeam);
 
-        const containerClient = getContainerClient();
+        const containerClient = getContainerClient(storage, containerName);
         storeInContainer(containerClient, gamesOfTeam, 'allgames.json');
         storeInContainer(containerClient, nextMatchPerTeam, 'nextgames.json');
     }
 });
 
-async function getAllGamesOfTeam(now, city) {
-    const mondayOfThisWeek = getDateOfMonday(now);
-    let allDates = await getMatchDates(mondayOfThisWeek);
-    const allGames = await getAllGames(allDates);
-
-    
+async function getAllGamesOfTeam(allGames, city) {
     const teamLA = `TSV ${city}`;
 
     let gamesOfTeam = allGames
@@ -70,6 +71,7 @@ async function getAllGames(allDates) {
 async function getMatchDates(mondayOfThisWeek) {
     return await fetch(getQuery(mondayOfThisWeek))
         .then(response => { return response.json(); })
+        .then(json => { console.log(json); return json; })
         .then(json => { return json[0].menu.dt.list; })
         .then(dates => Object.getOwnPropertyNames(dates));
 }
@@ -88,14 +90,14 @@ function getDateOfMonday(now) {
     return mondayOfThisWeek;
 }
 
-function mapTeamName(team , teamname) {
+function mapTeamName(team, teamname) {
     switch (team) {
         case 'M-KLA-D':
             return { short: 'M1', long: 'Männer 1', upper: 'MÄNNER 1' };
         case 'M-KLB-D':
             return { short: 'M2', long: 'Männer 2', upper: 'MÄNNER 2' };
         case 'F-KLA-D':
-            if(teamname == 'TSV Laichingen 2')
+            if (teamname == 'TSV Laichingen 2')
                 return { short: 'D2', long: 'Damen 2', upper: 'DAMEN 2' };
             else
                 return { short: 'D1', long: 'Damen 1', upper: 'DAMEN 1' };
@@ -155,10 +157,18 @@ function storeInContainer(containerClient, data, name) {
         .upload(JSON.stringify(data), JSON.stringify(data).length);
 }
 
-function getContainerClient() {
+function getContainerClient(storage, containerName) {
     return BlobServiceClient
-        .fromConnectionString(process.env["AzureWebJobsStorage"])
-        .getContainerClient(process.env["STORAGE_CONTAINER_NAME"]);
+        .fromConnectionString(storage)
+        .getContainerClient(containerName);
 }
 
-module.exports = {getDateTime, mapTeamName, getNextMatches, getDateOfMonday};
+module.exports = {
+    getDateTime,
+    mapTeamName,
+    getNextMatches,
+    getDateOfMonday,
+    getAllGames,
+    getMatchDates,
+    getAllGamesOfTeam
+};
