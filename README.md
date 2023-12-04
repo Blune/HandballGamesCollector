@@ -1,7 +1,7 @@
 # HandballGamesCollector
 Collects and stores the handball games via azure
 
-#Status
+## Status
 [![CI-Pipeline](https://github.com/Blune/HandballGamesCollector/actions/workflows/ci-pipeline.yaml/badge.svg)](https://github.com/Blune/HandballGamesCollector/actions/workflows/ci-pipeline.yaml)
 
 ## Idea
