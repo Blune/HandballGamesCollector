@@ -1,6 +1,9 @@
 # HandballGamesCollector
 Collects and stores the handball games via azure
 
+#Status
+![Tests](https://github.com/github/docs/actions/workflows/ci-pipeline.yml/badge.svg)
+
 ## Idea
 I need to know the dates of a certain Handball team.
 Since I tend to forget to carry the card with all the dates with me this project should query the dates for me and store them in an azure blob storage.
