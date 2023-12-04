@@ -16,10 +16,10 @@ jobs:
 
     - name: Terraform Init
       run: |
-        cd path/to/your/terraform/directory
+        cd terraform
         terraform init
 
     # - name: Terraform Apply
     #   run: |
-    #     cd path/to/your/terraform/directory
+    #     cd terraform
     #     terraform apply -auto-approve
