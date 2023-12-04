@@ -71,7 +71,7 @@ describe('mapTeamName', () => {
 describe('getDateOfMonday', () => {
   test('should return the date of monday of the current week', async () => {
     expect(handball.getDateOfMonday(new Date(2023, 10, 11)))
-      .toStrictEqual("2023-11-05");
+      .toStrictEqual("2023-11-06");
   });
 });
 
