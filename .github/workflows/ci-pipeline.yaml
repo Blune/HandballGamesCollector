@@ -23,7 +23,7 @@ jobs:
       working-directory: azure_function
       run: npm test
 
-  code_format:
+  terraform_checks:
     runs-on: ubuntu-latest
 
     steps:
@@ -35,3 +35,8 @@ jobs:
         cd terraform
         terraform init -backend=false -input=false
         terraform fmt -check -recursive
+    
+    - name: Terraform Validate
+      run: |
+        cd cd terraform
+        terraform validate
