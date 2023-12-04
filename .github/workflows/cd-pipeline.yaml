@@ -1,0 +1,25 @@
+name: Continuous-Deployment
+
+on:
+  workflow_run:
+    workflows: ["Continuous-Integration"]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Terraform Init
+      run: |
+        cd path/to/your/terraform/directory
+        terraform init
+
+    # - name: Terraform Apply
+    #   run: |
+    #     cd path/to/your/terraform/directory
+    #     terraform apply -auto-approve
