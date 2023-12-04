@@ -2,7 +2,8 @@
 Collects and stores the handball games via azure
 
 ## Status
-[![CI-Pipeline](https://github.com/Blune/HandballGamesCollector/actions/workflows/ci-pipeline.yaml/badge.svg)](https://github.com/Blune/HandballGamesCollector/actions/workflows/ci-pipeline.yaml)
+[![Continuous-Integration](https://github.com/Blune/HandballGamesCollector/actions/workflows/ci-pipeline.yaml/badge.svg)](https://github.com/Blune/HandballGamesCollector/actions/workflows/ci-pipeline.yaml)
+[![Continuous-Deployment](https://github.com/Blune/HandballGamesCollector/actions/workflows/cd-pipeline.yaml/badge.svg)](https://github.com/Blune/HandballGamesCollector/actions/workflows/cd-pipeline.yaml)
 
 ## Idea
 I need to know the dates of a certain Handball team.
