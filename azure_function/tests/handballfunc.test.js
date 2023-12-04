@@ -43,7 +43,7 @@ describe('getAllGames', () => {
 describe('getDateTime', () => {
   test('should transform the date and time string to a datetime object', async () => {
     expect(handball.getDateTime("10.10.23", "17:15"))
-      .toStrictEqual(new Date("2023-10-10T15:15:00.000Z"));
+      .toStrictEqual(new Date("2023-10-10T17:15:00.000Z"));
   });
 });
 
@@ -156,7 +156,7 @@ describe('getAllGamesOfTeam', () => {
     expect(games).toEqual([
       {
         "date": "29.11.23",
-        "dateCompare": new Date("2023-11-29T18:00:00.000Z"),
+        "dateCompare": new Date("2023-11-29T19:00:00.000Z"),
         "day": "Mi",
         "goals": "0",
         "home": "TSV Foo",
@@ -173,7 +173,7 @@ describe('getAllGamesOfTeam', () => {
       },
       {
         "date": "29.11.23",
-        "dateCompare": new Date("2023-11-29T16:00:00.000Z"),
+        "dateCompare": new Date("2023-11-29T17:00:00.000Z"),
         "day": "Mi",
         "goals": "0",
         "home": "TSV Foo",
