@@ -23,6 +23,13 @@ jobs:
       working-directory: azure_function
       run: npm test
 
+  code_format:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
     - name: Terraform Format Check
       run: |
         cd terraform
