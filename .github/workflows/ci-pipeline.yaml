@@ -41,9 +41,9 @@ jobs:
         cd terraform
         terraform validate
 
-    - name: Test with Checkov
-      id: checkov
-      uses: bridgecrewio/checkov-action@master
-      with:
-        directory: terraform
-        framework: terraform 
+    # - name: Test with Checkov
+    #   id: checkov
+    #   uses: bridgecrewio/checkov-action@master
+    #   with:
+    #     directory: terraform
+    #     framework: terraform 

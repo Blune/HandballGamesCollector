@@ -4,7 +4,7 @@ const fetch = require('node-fetch');
 
 app.timer('FetchHandballData', {
     schedule: '0 00 18 * * 6,0',
-    handler: async (myTimer, context) => {
+    handler: async (_myTimer, context) => {
         context.log(`Starting scheduled function`);
         const city = process.env["TEAM_CITY"];
         const storage = process.env["AzureWebJobsStorage"];
