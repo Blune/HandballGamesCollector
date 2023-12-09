@@ -41,7 +41,9 @@ jobs:
         cd terraform
         terraform validate
 
-    - name: Checkov Static Test
-      id: static
-      run: |
-        checkov -d . --download-external-modules true
+    - name: Test with Checkov
+      id: checkov
+      uses: bridgecrewio/checkov-action@master
+      with:
+        directory: terraform
+        framework: terraform 
