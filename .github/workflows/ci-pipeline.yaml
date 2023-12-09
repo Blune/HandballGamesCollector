@@ -40,3 +40,8 @@ jobs:
       run: |
         cd terraform
         terraform validate
+
+    - name: Checkov Static Test
+      id: static
+      run: |
+        checkov -d . --download-external-modules true
