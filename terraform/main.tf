@@ -4,7 +4,7 @@ terraform {
     storage_account_name = "tfhandballstatestorage"
     container_name       = "tfstate"
     key                  = "handball-games-collector.tfstate"
-    use_oidc             = true
+    # use_oidc             = true
   }
 }
 
