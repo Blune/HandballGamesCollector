@@ -10,11 +10,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Show code coverage
-      uses: ArtiomTr/jest-coverage-report-action@v2
-      with:
-        working-directory: azure_function
-
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
