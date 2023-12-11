@@ -15,6 +15,9 @@ permissions:
 jobs:
   terraform_plan:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./terraform
     # Environment variables for azure in terraform
     env:
       ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
@@ -35,7 +38,6 @@ jobs:
 
     - name: Terraform Init
       run: |
-        cd terraform
         terraform init
 
     # An exit code of 0 indicated no changes, 1 a terraform failure, 2 there are pending changes.
@@ -43,7 +45,6 @@ jobs:
       id: tf-plan
       run: |
         export exitcode=0
-        cd terraform
         terraform plan -detailed-exitcode -no-color -out tfplan || export exitcode=$?
 
         echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
@@ -60,13 +61,12 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: tfplan
-        path: terraform/tfplan
+        path: tfplan
 
     # Create string output of Terraform Plan
     - name: Create String Output
       id: tf-plan-string
       run: |
-        cd terraform
         TERRAFORM_PLAN=$(terraform show -no-color tfplan)
         
         delimiter="$(openssl rand -hex 8)"
@@ -116,15 +116,3 @@ jobs:
     # Terraform Apply
     - name: Terraform Apply
       run: terraform apply -auto-approve tfplan
-
-
-  # terraform_apply:
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-
-
-  #   - name: Terraform Apply
-  #     run: |
-  #       cd terraform
-  #       terraform apply -auto-approve
