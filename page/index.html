@@ -12,11 +12,11 @@
 
 <body>
     <div class="header">
-        <h1 id="headerText">Header</h1>
+        <h1 id="header-text">Header</h1>
     </div>
 
     <div class="content">
-        <div id="PerTeam" class="tabcontent">
+        <div id="per-team" class="tabcontent">
             <table id="json-table">
                 <thead>
                     <tr>
@@ -29,7 +29,7 @@
             </table>
         </div>
 
-        <div id="OpenGames" class="tabcontent">
+        <div id="open-games" class="tabcontent">
             <table id="unplayed-games-json-table">
                 <thead>
                     <tr>
@@ -42,7 +42,7 @@
             </table>
         </div>
 
-        <div id="AllGames" class="tabcontent">
+        <div id="all-games" class="tabcontent">
             <table id="all-games-table">
                 <thead>
                     <tr>
@@ -58,11 +58,11 @@
     </div>
 
     <div class="tab footer">
-        <button class="tablinks" onclick="openTab(event, 'PerTeam', 'Pro Team')" id="defaultOpen"><img
+        <button class="tablinks" onclick="openTab(event, 'per-team', 'Pro Team')" id="defaultOpen"><img
                 src="/images/1.png" width="40" height="40" alt="Pro Team"><br />Pro Team</button>
-        <button class="tablinks" onclick="openTab(event, 'OpenGames', 'Kommende Spiele')"><img src="/images/2.png"
+        <button class="tablinks" onclick="openTab(event, 'open-games', 'Kommende Spiele')"><img src="/images/2.png"
                 width="40" height="40" alt="Kommende Spiele"><br />Kommende Spiele</button>
-        <button class="tablinks" onclick="openTab(event, 'AllGames', 'Alle Spiele')"><img src="/images/3.png" width="40"
+        <button class="tablinks" onclick="openTab(event, 'all-games', 'Alle Spiele')"><img src="/images/3.png" width="40"
                 height="40" alt="Alle Spiele"><br />Alle Spiele</button>
     </div>
     <script src="urls.js"></script>
@@ -173,7 +173,7 @@
 
         function openTab(evt, tabName, displayName) {
             var i, tabcontent, tablinks;
-            document.getElementById("headerText").innerHTML = displayName;
+            document.getElementById("header-text").innerHTML = displayName;
             tabcontent = document.getElementsByClassName("tabcontent");
             for (i = 0; i < tabcontent.length; i++) {
                 tabcontent[i].style.display = "none";
