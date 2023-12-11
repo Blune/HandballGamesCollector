@@ -23,6 +23,9 @@ jobs:
       working-directory: azure_function
       run: npm test
 
+    - name: Run ESLint
+      run: eslint . --ext .js,.jsx,.ts,.tsx
+
   terraform_checks:
     runs-on: ubuntu-latest
 
