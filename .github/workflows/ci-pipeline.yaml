@@ -23,8 +23,14 @@ jobs:
       working-directory: azure_function
       run: npm test
 
-    - name: Run ESLint
-      run: eslint . --ext .js,.jsx,.ts,.tsx
+    - name: Lint Code Base
+      uses: github/super-linter@v4
+      env:
+        VALIDATE_ALL_CODEBASE: true
+        VALIDATE_JAVASCRIPT_ES: true
+        VALIDATE_PYTHON_BLACK: true
+        VALIDATE_HTML: true
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   terraform_checks:
     runs-on: ubuntu-latest
