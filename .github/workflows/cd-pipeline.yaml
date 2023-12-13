@@ -45,7 +45,7 @@ jobs:
       id: tf-plan
       run: |
         export exitcode=0
-        terraform plan -detailed-exitcode -no-color -out tfplan.tfplan || export exitcode=$?
+        terraform plan -detailed-exitcode -no-color -out tfplan || export exitcode=$?
 
         echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
         
@@ -61,13 +61,13 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: tfplan
-        path: terraform/tfplan.tfplan
+        path: terraform/tfplan
 
     # Create string output of Terraform Plan
     - name: Create String Output
       id: tf-plan-string
       run: |
-        TERRAFORM_PLAN=$(terraform show -no-color tfplan.tfplan)
+        TERRAFORM_PLAN=$(terraform show -no-color tfplan)
         
         delimiter="$(openssl rand -hex 8)"
         echo "summary<<${delimiter}" >> $GITHUB_OUTPUT
@@ -89,7 +89,7 @@ jobs:
 
   terraform_apply:
     name: 'Terraform Apply'
-    if: github.ref == 'refs/heads/main' && needs.terraform_plan.outputs.tfplanExitCode == 2
+    if: github.ref == 'refs/heads/main' && needs.terraform_plan.outputsExitCode == 2
     runs-on: ubuntu-latest
      # Environment variables for azure in terraform
     env:
@@ -125,10 +125,10 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: tfplan
-        path: terraform/tfplan.tfplan
+        path: terraform/tfplan
 
     # Terraform Apply
     - name: Terraform Apply
       run: |
         cd terraform
-        terraform apply -auto-approve tfplan.tfplan
+        terraform apply -auto-approve tfplan
