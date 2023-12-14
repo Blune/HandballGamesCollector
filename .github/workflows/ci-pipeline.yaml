@@ -24,6 +24,8 @@ jobs:
       run: npm test
     
     - uses: codecov/codecov-action@v3
+      with:
+        directory: azure_function\coverage
 
     - name: Lint Code Base
       uses: github/super-linter@v4
