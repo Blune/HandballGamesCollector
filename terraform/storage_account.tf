@@ -7,7 +7,7 @@ resource "azurerm_storage_account" "handball-storage-account" {
   # shared_access_key_enabled       = false
   min_tls_version                 = "TLS1_2"
   allow_nested_items_to_be_public = false
-  public_network_access_enabled   = false
+  # public_network_access_enabled   = false
 
   sas_policy {
     expiration_period = "712.00:00:00"
