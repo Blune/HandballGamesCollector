@@ -26,6 +26,7 @@ jobs:
     - uses: codecov/codecov-action@v3
       with:
         directory: azure_function
+        token: ${{ secrets.CODECOV_TOKEN }}
 
     - name: Lint Code Base
       uses: github/super-linter@v4
