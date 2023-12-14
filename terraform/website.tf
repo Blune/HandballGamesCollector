@@ -33,6 +33,7 @@ resource "azurerm_storage_blob" "website-fetch-blob" {
   storage_container_name = azurerm_storage_container.handball-storage-web-container.name
   type                   = "Block"
   content_type           = "application/javascript"
+  content_md5            = md5("${azurerm_storage_account.handball-storage-account.name}${azurerm_storage_container.handball-storage-container.name}${data.azurerm_storage_account_blob_container_sas.function_results_sas.sas}${data.azurerm_storage_account_blob_container_sas.function_results_sas.sas}")
   source_content         = <<EOT
 const allGamesUrl = "https://${azurerm_storage_account.handball-storage-account.name}.blob.core.windows.net/${azurerm_storage_container.handball-storage-container.name}/allgames.json${data.azurerm_storage_account_blob_container_sas.function_results_sas.sas}"
 const nextGamesUrl = "https://${azurerm_storage_account.handball-storage-account.name}.blob.core.windows.net/${azurerm_storage_container.handball-storage-container.name}/nextgames.json${data.azurerm_storage_account_blob_container_sas.function_results_sas.sas}"
