@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "start": "func start",
-    "test": "jest --collectCoverage --coverageReporters=json-summary"
+    "test": "jest --collectCoverage"
   },
   "dependencies": {
     "@azure/functions": "^4.0.0",
