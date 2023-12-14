@@ -9,6 +9,8 @@ resource "azurerm_linux_function_app" "handball-linux-function-app" {
   storage_account_access_key = azurerm_storage_account.handball-storage-account.primary_access_key
   service_plan_id            = azurerm_service_plan.handball-app-service-plan.id
 
+  https_only = true
+
   app_settings = {
     FUNCTIONS_WORKER_RUNTIME       = "node"
     WEBSITE_RUN_FROM_PACKAGE       = "https://${azurerm_storage_account.handball-storage-account.name}.blob.core.windows.net/${azurerm_storage_container.handball-deployments-storage-container.name}/${azurerm_storage_blob.storage_blob_function.name}${data.azurerm_storage_account_blob_container_sas.sas.sas}"
