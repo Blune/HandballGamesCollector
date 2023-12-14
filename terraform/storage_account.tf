@@ -4,10 +4,10 @@ resource "azurerm_storage_account" "handball-storage-account" {
   location                 = azurerm_resource_group.handball-resource-group.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
-  # shared_access_key_enabled       = false
+  shared_access_key_enabled       = true
   min_tls_version                 = "TLS1_2"
-  #allow_nested_items_to_be_public = false
-  # public_network_access_enabled   = false
+  allow_nested_items_to_be_public = true
+  public_network_access_enabled   = true
 
   sas_policy {
     expiration_period = "712.00:00:00"
