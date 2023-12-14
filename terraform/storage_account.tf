@@ -1,9 +1,9 @@
 resource "azurerm_storage_account" "handball-storage-account" {
-  name                            = "${local.name}storageaccount"
-  resource_group_name             = azurerm_resource_group.handball-resource-group.name
-  location                        = azurerm_resource_group.handball-resource-group.location
-  account_tier                    = "Standard"
-  account_replication_type        = "LRS"
+  name                     = "${local.name}storageaccount"
+  resource_group_name      = azurerm_resource_group.handball-resource-group.name
+  location                 = azurerm_resource_group.handball-resource-group.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
   # shared_access_key_enabled       = false
   min_tls_version                 = "TLS1_2"
   allow_nested_items_to_be_public = false
