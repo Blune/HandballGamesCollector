@@ -6,7 +6,7 @@ resource "azurerm_storage_account" "handball-storage-account" {
   account_replication_type = "LRS"
   # shared_access_key_enabled       = false
   min_tls_version                 = "TLS1_2"
-  allow_nested_items_to_be_public = false
+  #allow_nested_items_to_be_public = false
   # public_network_access_enabled   = false
 
   sas_policy {

@@ -14,7 +14,6 @@ resource "azurerm_storage_container" "handball-storage-web-container" {
   container_access_type = "private"
 }
 
-
 resource "azurerm_storage_blob" "website-all-blob" {
   for_each = fileset("${local.websitePath}/", "**/*")
 
