@@ -5,6 +5,7 @@ resource "azurerm_storage_account" "handball-storage-account" {
   account_tier              = "Standard"
   account_replication_type  = "LRS"
   shared_access_key_enabled = false
+  min_tls_version           = "TLS1_2"
 
   sas_policy {
     expiration_period = "712.00:00:00"
