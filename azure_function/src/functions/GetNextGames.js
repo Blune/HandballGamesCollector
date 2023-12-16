@@ -2,7 +2,7 @@ const { app } = require('@azure/functions');
 const { BlobServiceClient } = require("@azure/storage-blob");
 
 app.timer('FetchHandballData', {
-    schedule: '0 00 18 * * 6,0',
+    schedule: '0 00 20 * * 6,0',
     handler: async (_myTimer, context) => {
         context.log(`Starting scheduled function`);
         const storage = process.env["AzureWebJobsStorage"];
