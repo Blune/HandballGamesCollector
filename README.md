@@ -2,7 +2,11 @@
 Collects and stores handball games via azure
 
 ## Status
-  
+
+### Code Coverage
+[![codecov](https://codecov.io/gh/Blune/HandballGamesCollector/graph/badge.svg?token=YD8EPS3G14)](https://codecov.io/gh/Blune/HandballGamesCollector)
+
+### Pipelines  
 [![Continuous-Integration](https://github.com/Blune/HandballGamesCollector/actions/workflows/ci-pipeline.yaml/badge.svg)](https://github.com/Blune/HandballGamesCollector/actions/workflows/ci-pipeline.yaml)    
 [![Continuous-Deployment](https://github.com/Blune/HandballGamesCollector/actions/workflows/cd-pipeline.yaml/badge.svg)](https://github.com/Blune/HandballGamesCollector/actions/workflows/cd-pipeline.yaml)
 
