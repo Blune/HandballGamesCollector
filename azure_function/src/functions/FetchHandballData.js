@@ -7,14 +7,18 @@ app.timer('FetchHandballData', {
     handler: async (_myTimer, context) => {
         context.log(`Starting scheduled function`);
         const city = process.env["TEAM_CITY"];
+        const url = process.env["QUERY_URL"];
+        const baWue = process.env["TEAM_REGION_BAWUE"];
+        const orgBodensee = process.env["TEAM_ORG_BODENSEE_DONAU"];
         const storage = process.env["AzureWebJobsStorage"];
         const containerName = process.env["STORAGE_CONTAINER_NAME"];
 
         const now = new Date();
         const mondayOfThisWeek = getDateOfMonday(now);
-        const allDates = await getMatchDates(mondayOfThisWeek, fetch);
+        const query = getQuery(mondayOfThisWeek, url, orgBodensee, baWue);
+        const allDates = await getMatchDates(query);
         const allGames = await getAllGames(allDates);
-        let gamesOfTeam = await getAllGamesOfTeam(allGames, city);
+        const gamesOfTeam = await getAllGamesOfTeam(allGames, city);
         const nextMatchPerTeam = getNextMatches(now, gamesOfTeam);
 
         const containerClient = getContainerClient(storage, containerName);
@@ -29,35 +33,9 @@ async function getAllGamesOfTeam(allGames, city) {
     let gamesOfTeam = allGames
         .flatMap(json => json[0].content.classes)
         .filter(c => c.games.length > 0)
-        .map(c => {
-            c.games.forEach(game => game.team = c.gClassSname);
-            return c;
-        })
-        .flatMap(c => c.games)
-        .filter(game => game.gHomeTeam.startsWith(teamLA) || game.gGuestTeam.startsWith(teamLA))
-        .map(element => {
-            const dateTime = getDateTime(element.gDate, element.gTime);
-            const homeGame = element.gHomeTeam.startsWith(teamLA);
-            const n = homeGame ? element.gHomeTeam : element.gGuestTeam;
-            const teamNames = mapTeamName(element.team, n);
-            return {
-                team: element.team,
-                teamname: teamNames.long,
-                shortteamname: teamNames.short,
-                upperteamname: teamNames.upper,
-                home: homeGame ? element.gHomeTeam : element.gGuestTeam,
-                opponent: homeGame ? element.gGuestTeam : element.gHomeTeam,
-                goals: homeGame ? element.gHomeGoals : element.gHomeGoals_1,
-                opponentgoals: homeGame ? element.gHomeGoals_1 : element.gHomeGoals,
-                date: element.gDate,
-                dateCompare: dateTime,
-                day: element.gWDay,
-                time: element.gTime,
-                matchtype: element.gGymnasiumTown == city ? "H" : "A",
-                match: `${element.gHomeTeam} vs ${element.gGuestTeam}`,
-                place: `in ${element.gGymnasiumTown}`
-            };
-        });
+        .flatMap(c => extractGameData(c.games, c.gClassSname))
+        .filter(game => game.HomeTeam.startsWith(teamLA) || game.GuestTeam.startsWith(teamLA))
+        .map(element => createGameData(element, city));
     return gamesOfTeam;
 }
 
@@ -68,19 +46,57 @@ async function getAllGames(allDates) {
     return allGames;
 }
 
-async function getMatchDates(mondayOfThisWeek) {
-    return await fetch(getQuery(mondayOfThisWeek))
+async function getMatchDates(query) {
+    return await fetch(query)
         .then(response => { return response.json(); })
         .then(json => { console.log(json); return json; })
         .then(json => { return json[0].menu.dt.list; })
         .then(dates => Object.getOwnPropertyNames(dates));
 }
 
-function getQuery(date) {
-    const url = 'https://spo.handball4all.de/service/if_g_json.php?';
-    const orgBodenseeDonau = "12";
-    const baWue = "3";
+function getQuery(date, url, orgBodenseeDonau, baWue) {
     return `${url}do=${date}&cmd=po&og=${baWue}&o=${orgBodenseeDonau}`;
+}
+
+function extractGameData(games, league) {
+    return games.map(game => {
+        return {
+            Team: league,
+            HomeTeam: game.gHomeTeam,
+            GuestTeam: game.gGuestTeam,
+            HomeGoals: game.gHomeGoals,
+            GuestGoals: game.gHomeGoals_1,
+            Date: game.gDate,
+            Time: game.gTime,
+            WeekDay: game.gWDay,
+            Town: game.gGymnasiumTown
+        }
+    });
+}
+
+function createGameData(element, city) {
+    const teamLA = `TSV ${city}`;
+    const dateTime = getDateTime(element.Date, element.Time);
+    const homeGame = element.HomeTeam.startsWith(teamLA);
+    const n = homeGame ? element.HomeTeam : element.GuestTeam;
+    const teamNames = mapTeamName(element.Team, n);
+    return {
+        team: element.Team,
+        teamname: teamNames.long,
+        shortteamname: teamNames.short,
+        upperteamname: teamNames.upper,
+        home: homeGame ? element.HomeTeam : element.GuestTeam,
+        opponent: homeGame ? element.GuestTeam : element.HomeTeam,
+        goals: homeGame ? element.HomeGoals : element.GuestGoals,
+        opponentgoals: homeGame ? element.HomeGoals : element.HomeGoals,
+        date: element.Date,
+        dateCompare: dateTime,
+        day: element.WeekDay,
+        time: element.Time,
+        matchtype: element.Town == city ? "H" : "A",
+        match: `${element.HomeTeam} vs ${element.GuestTeam}`,
+        place: `in ${element.Town}`
+    };
 }
 
 function getDateOfMonday(now) {
