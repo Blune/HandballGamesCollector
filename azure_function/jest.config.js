@@ -3,4 +3,5 @@ module.exports = {
   testEnvironment: 'node',
   coverageReporters: ['text', 'cobertura'],
   testRegex: '(/tests/.*|(\\.|/)(test|spec))\\.js$',
+  globalSetup: "./global-setup.js"
 };
