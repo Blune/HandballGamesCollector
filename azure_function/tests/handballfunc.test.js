@@ -1,4 +1,4 @@
-const handball = require('../src/functions/FetchHandballData/FetchHandballData.js');
+const handball = require('../src/functions/FetchHandballData.js');
 const fetch = require('node-fetch');
 const { BlobServiceClient } = require('@azure/storage-blob');
 

@@ -12,7 +12,7 @@ resource "null_resource" "create_function_package" {
     # next    = sha256(file("${local.functionPath}/src/functions/GetNextGames.js"))
     package = sha256(file("${local.functionPath}/package.json"))
     lock    = sha256(file("${local.functionPath}/package-lock.json"))
-    node    = sha256(join("", fileset(local.functionPath, "/**/**/*.js")))
+    node    = sha256(join("", fileset(local.functionPath, "/**/*.js")))
   }
 }
 
