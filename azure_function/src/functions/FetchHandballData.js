@@ -148,7 +148,6 @@ function getDateTime(date, time) {
     return new Date(year, monthIndex, day, hours, minutes);
 }
 
-
 function getNextMatches(now, gamesOfTeam) {
     const in15Days = new Date(now);
     in15Days.setDate(now.getDate() + 60);

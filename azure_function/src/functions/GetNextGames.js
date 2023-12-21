@@ -49,5 +49,6 @@ function getContainerClient(storage, containerName) {
 
 module.exports = {
     getNextMatches,
-    getContainerClient
+    getContainerClient,
+    getDataFromContainer
 };
