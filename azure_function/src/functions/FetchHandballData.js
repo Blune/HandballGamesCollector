@@ -27,14 +27,6 @@ app.timer('FetchHandballData', {
     }
 });
 
-app.timer('GetNextGames', {
-    schedule: '0 00 18 * * 6,0',
-    handler: async (_myTimer, context) => {
-        context.log(`Starting scheduled function`);
-        
-    }
-});
-
 async function getAllGamesOfTeam(allGames, city) {
     const teamLA = `TSV ${city}`;
 
