@@ -1,6 +1,6 @@
 locals {
   functionPath = abspath("${path.root}/../azure_function")
-  zipfile = "function.zip"
+  zipfile      = "function.zip"
 }
 
 resource "null_resource" "create_function_package" {
