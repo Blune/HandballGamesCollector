@@ -16,7 +16,7 @@ resource "null_resource" "create_function_package" {
 }
 
 data "archive_file" "function_zip" {
-  depends_on = [null_resource.create_function_package]
+  # depends_on = [null_resource.create_function_package]
 
   type        = "zip"
   output_path = "${path.module}/${local.zipfile}"
