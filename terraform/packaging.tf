@@ -8,11 +8,11 @@ resource "null_resource" "create_function_package" {
     command = "cd ${local.functionPath}/ && npm install"
   }
 
-  triggers = {
-    package = sha256(file("${local.functionPath}/package.json"))
-    lock    = sha256(file("${local.functionPath}/package-lock.json"))
-    node    = sha256(join("", fileset(local.functionPath, "/**/**/*.js")))
-  }
+  # triggers = {
+  #   package = sha256(file("${local.functionPath}/package.json"))
+  #   lock    = sha256(file("${local.functionPath}/package-lock.json"))
+  #   node    = sha256(join("", fileset(local.functionPath, "/**/**/*.js")))
+  # }
 }
 
 data "archive_file" "function_zip" {
