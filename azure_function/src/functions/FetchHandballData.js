@@ -13,19 +13,23 @@ app.timer('FetchHandballData', {
         const storage = process.env["AzureWebJobsStorage"];
         const containerName = process.env["STORAGE_CONTAINER_NAME"];
 
-        const now = new Date();
-        const mondayOfThisWeek = getDateOfMonday(now);
-        const query = getQuery(mondayOfThisWeek, url, orgBodensee, baWue);
-        const allDates = await getMatchDates(query);
-        const allGames = await getAllGames(allDates);
-        const gamesOfTeam = await getAllGamesOfTeam(allGames, city);
-        const nextMatchPerTeam = getNextMatches(now, gamesOfTeam);
-
-        const containerClient = getContainerClient(storage, containerName);
-        storeInContainer(containerClient, gamesOfTeam, 'allgames.json');
-        storeInContainer(containerClient, nextMatchPerTeam, 'nextgames.json');
+        await fetchAndStoreGames(url, orgBodensee, baWue, city, storage, containerName);
     }
 });
+
+async function fetchAndStoreGames(url, orgBodensee, baWue, city, storage, containerName) {
+    const now = new Date();
+    const mondayOfThisWeek = getDateOfMonday(now);
+    const query = getQuery(mondayOfThisWeek, url, orgBodensee, baWue);
+    const allDates = await getMatchDates(query);
+    const allGames = await getAllGames(allDates);
+    const gamesOfTeam = await getAllGamesOfTeam(allGames, city);
+    const nextMatchPerTeam = getNextMatches(now, gamesOfTeam);
+
+    const containerClient = getContainerClient(storage, containerName);
+    storeInContainer(containerClient, gamesOfTeam, 'allgames.json');
+    storeInContainer(containerClient, nextMatchPerTeam, 'nextgames.json');
+}
 
 async function getAllGamesOfTeam(allGames, city) {
     const teamLA = `TSV ${city}`;
