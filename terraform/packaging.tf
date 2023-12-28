@@ -1,5 +1,6 @@
 locals {
   functionPath = abspath("${path.root}/../azure_function")
+  zipfile = "function.zip"
 }
 
 resource "null_resource" "create_function_package" {
@@ -8,8 +9,6 @@ resource "null_resource" "create_function_package" {
   }
 
   triggers = {
-    # index   = sha256(file("${local.functionPath}/src/functions/FetchHandballData.js"))
-    # next    = sha256(file("${local.functionPath}/src/functions/GetNextGames.js"))
     package = sha256(file("${local.functionPath}/package.json"))
     lock    = sha256(file("${local.functionPath}/package-lock.json"))
     node    = sha256(join("", fileset(local.functionPath, "/**/**/*.js")))
@@ -17,15 +16,17 @@ resource "null_resource" "create_function_package" {
 }
 
 data "archive_file" "function_zip" {
-  type        = "zip"
-  output_path = "${path.module}/function.zip"
-  source_dir  = "${local.functionPath}/"
-
   depends_on = [null_resource.create_function_package]
+
+  type        = "zip"
+  output_path = "${path.module}/${local.zipfile}"
+  source_dir  = "${local.functionPath}/"
 }
 
 resource "azurerm_storage_blob" "storage_blob_function" {
-  name                   = "function.zip"
+  depends_on = [data.archive_file.function_zip]
+
+  name                   = local.zipfile
   storage_account_name   = azurerm_storage_account.handball-storage-account.name
   storage_container_name = azurerm_storage_container.handball-deployments-storage-container.name
   type                   = "Block"
