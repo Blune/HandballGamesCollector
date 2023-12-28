@@ -33,6 +33,6 @@ resource "azurerm_storage_blob" "storage_blob_function" {
   source                 = data.archive_file.function_zip.output_path
   metadata = {
     # Force re-deploy if hash changes
-    PACKAGE_HASH = data.archive_file.function_zip.output_base64sha256
+    package_hash = data.archive_file.function_zip.output_base64sha256
   }
 }
