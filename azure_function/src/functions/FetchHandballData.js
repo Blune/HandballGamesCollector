@@ -13,16 +13,16 @@ app.timer('FetchHandballData', {
         const storage = process.env["AzureWebJobsStorage"];
         const containerName = process.env["STORAGE_CONTAINER_NAME"];
 
-        await fetchAndStoreGames(url, orgBodensee, baWue, city, storage, containerName);
+        await fetchAndStoreGames(url, orgBodensee, baWue, city, storage, containerName, context);
     }
 });
 
-async function fetchAndStoreGames(url, orgBodensee, baWue, city, storage, containerName) {
+async function fetchAndStoreGames(url, orgBodensee, baWue, city, storage, containerName, context) {
     const now = new Date();
     const mondayOfThisWeek = getDateOfMonday(now);
-    const query = getQuery(mondayOfThisWeek, url, orgBodensee, baWue);
+    const query = getQuery(mondayOfThisWeek, url, orgBodensee, baWue, context);
     const allDates = await getMatchDates(query);
-    const allGames = await getAllGames(allDates, url, orgBodensee, baWue);
+    const allGames = await getAllGames(allDates, url, orgBodensee, baWue, context);
     const gamesOfTeam = await getAllGamesOfTeam(allGames, city);
     const nextMatchPerTeam = getNextMatches(now, gamesOfTeam);
 
@@ -43,8 +43,8 @@ async function getAllGamesOfTeam(allGames, city) {
     return gamesOfTeam;
 }
 
-async function getAllGames(allDates, url, orgBodenseeDonau, baWue) {
-    const urls = allDates.map(date => getQuery(date, url, orgBodenseeDonau, baWue));
+async function getAllGames(allDates, url, orgBodenseeDonau, baWue, context) {
+    const urls = allDates.map(date => getQuery(date, url, orgBodenseeDonau, baWue, context));
     const requests = urls.map((url) => fetch(url).then(response => response.json()));
     const allGames = await Promise.all(requests);
     return allGames;
@@ -58,8 +58,10 @@ async function getMatchDates(query) {
         .then(dates => Object.getOwnPropertyNames(dates));
 }
 
-function getQuery(date, url, orgBodenseeDonau, baWue) {
-    return `${url}do=${date}&cmd=po&og=${baWue}&o=${orgBodenseeDonau}`;
+function getQuery(date, url, orgBodenseeDonau, baWue, context) {
+    let query = `${url}do=${date}&cmd=po&og=${baWue}&o=${orgBodenseeDonau}`;
+    context?.log(`Fetching: ${query}`);
+    return query;
 }
 
 function extractGameData(games, league) {
