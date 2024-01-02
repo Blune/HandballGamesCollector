@@ -22,7 +22,7 @@ async function fetchAndStoreGames(url, orgBodensee, baWue, city, storage, contai
     const mondayOfThisWeek = getDateOfMonday(now);
     const query = getQuery(mondayOfThisWeek, url, orgBodensee, baWue);
     const allDates = await getMatchDates(query);
-    const allGames = await getAllGames(allDates);
+    const allGames = await getAllGames(allDates, url, orgBodensee, baWue);
     const gamesOfTeam = await getAllGamesOfTeam(allGames, city);
     const nextMatchPerTeam = getNextMatches(now, gamesOfTeam);
 
@@ -43,8 +43,8 @@ async function getAllGamesOfTeam(allGames, city) {
     return gamesOfTeam;
 }
 
-async function getAllGames(allDates) {
-    const urls = allDates.map(date => getQuery(date));
+async function getAllGames(allDates, url, orgBodenseeDonau, baWue) {
+    const urls = allDates.map(date => getQuery(date, url, orgBodenseeDonau, baWue));
     const requests = urls.map((url) => fetch(url).then(response => response.json()));
     const allGames = await Promise.all(requests);
     return allGames;
