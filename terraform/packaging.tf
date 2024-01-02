@@ -9,9 +9,10 @@ resource "null_resource" "create_function_package" {
   }
 
   triggers = {
-    package = sha256(file("${local.functionPath}/package.json"))
-    lock    = sha256(file("${local.functionPath}/package-lock.json"))
-    node    = sha256(join("", fileset(local.functionPath, "/**/**/*.js")))
+    function = sha256(file("${local.functionPath}/src/functions/FetchHandballData.js"))
+    package  = sha256(file("${local.functionPath}/package.json"))
+    lock     = sha256(file("${local.functionPath}/package-lock.json"))
+    node     = sha256(join("", fileset(local.functionPath, "/**/*.js")))
   }
 }
 
