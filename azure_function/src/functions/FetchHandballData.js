@@ -193,5 +193,6 @@ module.exports = {
     getMatchDates,
     getAllGamesOfTeam,
     getContainerClient,
-    storeInContainer
+    storeInContainer,
+    fetchAndStoreGames
 };

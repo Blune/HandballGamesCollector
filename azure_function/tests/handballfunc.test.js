@@ -47,6 +47,62 @@ describe('getDateTime', () => {
   });
 });
 
+describe('fetchAndStoreGames', () => {
+  test('should run without errors', async () => {
+    const mockResponse = {
+      "menu": {
+        "dt": {
+          "list": {
+            "2023-08-28": ""
+          }
+        }
+      }
+    };
+    const mockData = [{
+      "content": {
+        "classes": [
+          {
+            "gClassSname": "Liga1",
+            "games": [{
+              "gHomeTeam": "TSV Foo",
+              "gGuestTeam": "TSV Bar",
+              "gDate": "29.11.23",
+              "gWDay": "Mi",
+              "gTime": "19:00",
+              "gGymnasiumName": "ratiopharm-Sporthalle",
+              "gGymnasiumTown": "Berlin",
+              "gHomeGoals": "0",
+              "gGuestGoals": "0",
+              "gHomeGoals_1": "0",
+              "gGuestGoals_1": "0",
+              "gHomePoints": "2",
+              "gGuestPoints": "0",
+            }]
+          }
+        ]
+      }
+    }
+    ]
+    fetch
+      .mockResolvedValueOnce({
+        json: jest.fn().mockResolvedValueOnce([mockResponse]),
+      })
+      .mockResolvedValue({
+        json: jest.fn().mockResolvedValueOnce(mockData),
+      });
+    const mockUpload = jest.fn().mockResolvedValue('Mocked upload result');
+    const mockGetBlockBlobClient = jest.fn().mockReturnValue({ upload: mockUpload });
+    const mockContainerClient = { getBlockBlobClient: mockGetBlockBlobClient };
+
+    BlobServiceClient.fromConnectionString.mockReturnValue({
+      getContainerClient: jest.fn().mockReturnValueOnce(mockContainerClient),
+    });
+
+    expect(handball.fetchAndStoreGames(new Date(), 3, 3, "test", "test", "test", null)).resolves
+      .not.toThrowError();
+  });
+});
+
 describe('mapTeamName', () => {
   test('should return the correct team name', async () => {
     expect(handball.mapTeamName("M-KLA-D", ""))
