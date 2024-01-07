@@ -36,7 +36,7 @@ resource "azurerm_storage_blob" "website-fetch-blob" {
   storage_container_name = azurerm_storage_container.handball-storage-web-container.name
   type                   = "Block"
   content_type           = "application/javascript"
-  content_md5            = md5(local.urls)
+  # content_md5            = md5(local.urls)
   source_content         = local.urls
 }
 
