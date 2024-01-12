@@ -42,6 +42,15 @@ resource "azurerm_storage_blob" "website-fetch-blob" {
   source_content         = local.urls
 }
 
+resource "azurerm_storage_blob" "website-fetchallgames-blob" {
+  name                   = "allGames.js"
+  storage_account_name   = azurerm_storage_account.handball-storage-account.name
+  storage_container_name = azurerm_storage_container.handball-storage-web-container.name
+  type                   = "Block"
+  content_type           = "application/javascript"
+  source_content         = "const allGamesUrl = \"${local.prefix}/allgames.json${local.suffix}\""
+}
+
 data "azurerm_storage_account_blob_container_sas" "function_results_sas" {
   connection_string = azurerm_storage_account.handball-storage-account.primary_connection_string
   container_name    = azurerm_storage_container.handball-storage-container.name
