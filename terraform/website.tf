@@ -7,9 +7,10 @@ locals {
     css  = "text/css"
   }
   prefix = "https://${azurerm_storage_account.handball-storage-account.name}.blob.core.windows.net/${azurerm_storage_container.handball-storage-container.name}"
+  suffix = "${data.azurerm_storage_account_blob_container_sas.function_results_sas.sas}"
   urls = <<EOT
-const allGamesUrl = "${local.prefix}/allgames.json${data.azurerm_storage_account_blob_container_sas.function_results_sas.sas}"
-const nextGamesUrl = "${local.prefix}/nextgames.json${data.azurerm_storage_account_blob_container_sas.function_results_sas.sas}"
+const allGamesUrl = "${local.prefix}/allgames.json${local.suffix}"
+const nextGamesUrl = "${local.prefix}/nextgames.json${local.suffix}"
 EOT 
 }
 
