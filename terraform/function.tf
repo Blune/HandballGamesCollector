@@ -16,7 +16,7 @@ resource "azurerm_linux_function_app" "handball-linux-function-app" {
     WEBSITE_RUN_FROM_PACKAGE       = "https://${azurerm_storage_account.handball-storage-account.name}.blob.core.windows.net/${azurerm_storage_container.handball-deployments-storage-container.name}/${azurerm_storage_blob.storage_blob_function.name}${data.azurerm_storage_account_blob_container_sas.sas.sas}"
     APPINSIGHTS_INSTRUMENTATIONKEY = "${azurerm_application_insights.application_insights.instrumentation_key}"
     STORAGE_CONTAINER_NAME         = "${azurerm_storage_container.handball-storage-container.name}"
-    WEBSITE_TIME_ZONE              = "W. Europe Standard Time"
+    # WEBSITE_TIME_ZONE              = "W. Europe Standard Time" #Not supported
     QUERY_URL                      = "https://spo.handball4all.de/service/if_g_json.php?"
     TEAM_CITY                      = "Laichingen"
     TEAM_REGION_BAWUE              = "3"
