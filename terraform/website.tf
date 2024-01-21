@@ -7,8 +7,8 @@ locals {
     css  = "text/css"
   }
   prefix = "https://${azurerm_storage_account.handball-storage-account.name}.blob.core.windows.net/${azurerm_storage_container.handball-storage-container.name}"
-  suffix = "${data.azurerm_storage_account_blob_container_sas.function_results_sas.sas}"
-  urls = <<EOT
+  suffix = data.azurerm_storage_account_blob_container_sas.function_results_sas.sas
+  urls   = <<EOT
 const allGamesUrl = "${local.prefix}/allgames.json${local.suffix}"
 const nextGamesUrl = "${local.prefix}/nextgames.json${local.suffix}"
 EOT 
@@ -42,6 +42,7 @@ resource "azurerm_storage_blob" "website-fetch-blob" {
   source_content         = local.urls
 }
 
+//Testing
 resource "azurerm_storage_blob" "website-fetchallgames-blob" {
   name                   = "allGames.js"
   storage_account_name   = azurerm_storage_account.handball-storage-account.name
@@ -50,6 +51,16 @@ resource "azurerm_storage_blob" "website-fetchallgames-blob" {
   content_type           = "application/javascript"
   source_content         = "const allGamesUrl = \"${local.prefix}/allgames.json\""
 }
+
+resource "azurerm_storage_blob" "website-fetchallgames-blob2" {
+  name                   = "testing.js"
+  storage_account_name   = azurerm_storage_account.handball-storage-account.name
+  storage_container_name = azurerm_storage_container.handball-storage-web-container.name
+  type                   = "Block"
+  content_type           = "application/javascript"
+  source_content         = "const allGamesUrl = \"/allgames.json${local.suffix}\""
+}
+//Testing END
 
 data "azurerm_storage_account_blob_container_sas" "function_results_sas" {
   connection_string = azurerm_storage_account.handball-storage-account.primary_connection_string
