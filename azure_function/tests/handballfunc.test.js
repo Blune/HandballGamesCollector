@@ -365,23 +365,23 @@ describe('getNextGamesOfTeam', () => {
 describe('mapTeamName', () => {
   describe('should return all short names of the teams', () => {
     const dataSet = [
-      ["M-BK-D", "", 'M1', 'Männer 1', 'MÄNNER 1'],
-      ["M-2BK-D", "", 'M2', 'Männer 2', 'MÄNNER 2'],
-      ["F-BL", "", 'D1', 'Damen 1', 'DAMEN 1'],
-      ["F-BK-D", "", 'D2', 'Damen 2', 'DAMEN 2'],
-      ["gJD-3BK-1", "", 'gD', 'Gemischte D-Jugend', 'gD-JUGEND'],
-      ["wJD-BK-1", "", 'wB', 'Weibliche D-Jugend', 'wD-JUGEND'],
-      ["wJA-BL-1", "", 'wB', 'Weibliche A-Jugend', 'wA-JUGEND'],
-      ["gJE-6+1", "", 'gE', 'Gemischte E-Jugend', 'gE-JUGEND'],
-      ["mJA-BL", "", 'mB', 'Männliche A-Jugend', 'mA-JUGEND'],
-      ["mJC-BK-1", "", 'mC', 'Männliche C-Jugend', 'mC-JUGEND'],
-      ["gJF-1", "", 'gF', 'Gemischte F-Jugend', 'gF-JUGEND'],
-      ["F-Pok-B", "", 'wP', 'Pokalspiel D1', 'DAMEN 1 (POKAL)'],
-      ["ABCDES", "", '', 'ABCDES', 'ABCDES'],
+      ["M-BK-D", 'M1', 'Männer 1', 'MÄNNER 1'],
+      ["M-2BK-D", 'M2', 'Männer 2', 'MÄNNER 2'],
+      ["F-BL", 'D1', 'Damen 1', 'DAMEN 1'],
+      ["F-BK-D", 'D2', 'Damen 2', 'DAMEN 2'],
+      ["gJD-3BK-1", 'gD', 'Gemischte D-Jugend', 'gD-JUGEND'],
+      ["wJD-BK-1", 'wB', 'Weibliche D-Jugend', 'wD-JUGEND'],
+      ["wJA-BL-1", 'wB', 'Weibliche A-Jugend', 'wA-JUGEND'],
+      ["gJE-6+1", 'gE', 'Gemischte E-Jugend', 'gE-JUGEND'],
+      ["mJA-BL", 'mB', 'Männliche A-Jugend', 'mA-JUGEND'],
+      ["mJC-BK-1", 'mC', 'Männliche C-Jugend', 'mC-JUGEND'],
+      ["gJF-1", 'gF', 'Gemischte F-Jugend', 'gF-JUGEND'],
+      ["F-Pok-B", 'wP', 'Pokalspiel D1', 'DAMEN 1 (POKAL)'],
+      ["ABCDES", '', 'ABCDES', 'ABCDES'],
     ];
 
-    it.each(dataSet)('should return the short name of the team', (team, teamName, short, long, upper) => {
-      const result = handball.mapTeamName(team, teamName);
+    it.each(dataSet)('should return the short name of the team', (team, short, long, upper) => {
+      const result = handball.mapTeamName(team);
 
       expect(result).toStrictEqual({ short: short, long: long, upper: upper });
     });
