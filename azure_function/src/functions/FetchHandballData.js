@@ -1,5 +1,6 @@
 const { app } = require('@azure/functions');
 const { BlobServiceClient } = require("@azure/storage-blob");
+const fetch = require('node-fetch');
 
 app.timer('FetchHandballData', {
     schedule: '0 00 18 * * 6,0',
