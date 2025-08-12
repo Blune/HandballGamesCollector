@@ -29,12 +29,12 @@ resource "azurerm_storage_account_static_website" "website" {
 
 resource "azurerm_storage_container" "handball-storage-container" {
   name                  = "function"
-  storage_account_id  = azurerm_storage_account.handball-storage-account.id
+  storage_account_id    = azurerm_storage_account.handball-storage-account.id
   container_access_type = "private"
 }
 
 resource "azurerm_storage_container" "handball-deployments-storage-container" {
   name                  = "deployments"
-  storage_account_id  = azurerm_storage_account.handball-storage-account.id
+  storage_account_id    = azurerm_storage_account.handball-storage-account.id
   container_access_type = "private"
 }
