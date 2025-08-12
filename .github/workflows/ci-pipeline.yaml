@@ -44,6 +44,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: 1.9.5  # or the version you want
+
     - name: Terraform Format Check
       run: |
         cd terraform
