@@ -103,27 +103,6 @@ describe('fetchAndStoreGames', () => {
   });
 });
 
-describe('mapTeamName', () => {
-  test('should return the correct team name', async () => {
-    expect(handball.mapTeamName("M-KLA-D", ""))
-      .toStrictEqual({ short: 'M1', long: 'Männer 1', upper: 'MÄNNER 1' });
-  });
-});
-
-describe('mapTeamName', () => {
-  test('should return the correct team name for the women team 1', async () => {
-    expect(handball.mapTeamName("F-KLA-D", "TSV Laichingen"))
-      .toStrictEqual({ short: 'D1', long: 'Damen 1', upper: 'DAMEN 1' });
-  });
-});
-
-describe('mapTeamName', () => {
-  test('should return the correct team name for the women team 2', async () => {
-    expect(handball.mapTeamName("F-KLA-D", "TSV Laichingen 2"))
-      .toStrictEqual({ short: 'D2', long: 'Damen 2', upper: 'DAMEN 2' });
-  });
-});
-
 describe('getDateOfMonday', () => {
   test('should return the date of monday of the current week', async () => {
     expect(handball.getDateOfMonday(new Date(2023, 10, 11)))
@@ -365,22 +344,23 @@ describe('getNextGamesOfTeam', () => {
 describe('mapTeamName', () => {
   describe('should return all short names of the teams', () => {
     const dataSet = [
-      ["M-KLA-D", "", 'M1', 'Männer 1', 'MÄNNER 1'],
-      ["M-KLB-D", "", 'M2', 'Männer 2', 'MÄNNER 2'],
-      ["F-KLA-D", "", 'D1', 'Damen 1', 'DAMEN 1'],
-      ["F-KLA-D", "TSV Laichingen 2", 'D2', 'Damen 2', 'DAMEN 2'],
-      ["gJD-KLC-1", "", 'gD', 'Gemischte D-Jugend', 'gD-JUGEND'],
-      ["wJB-KL-1", "", 'wB', 'Weibliche B-Jugend', 'wB-JUGEND'],
-      ["gJE-6+1", "", 'gE', 'Gemischte E-Jugend', 'gE-JUGEND'],
-      ["mJB-KL-1", "", 'mB', 'Männliche B-Jugend', 'mB-JUGEND'],
-      ["mJC-KLC-1", "", 'mC', 'Männliche C-Jugend', 'mC-JUGEND'],
-      ["gJF-1", "", 'gF', 'Gemischte F-Jugend', 'gF-JUGEND'],
-      ["F-Pok-B", "", 'wP', 'Pokalspiel D1', 'DAMEN 1 (POKAL)'],
-      ["ABCDES", "", '', 'ABCDES', 'ABCDES'],
+      ["M-BK-D", 'M1', 'Männer 1', 'MÄNNER 1'],
+      ["M-2BK-D", 'M2', 'Männer 2', 'MÄNNER 2'],
+      ["F-BL", 'D1', 'Damen 1', 'DAMEN 1'],
+      ["F-BK-D", 'D2', 'Damen 2', 'DAMEN 2'],
+      ["gJD-3BK-1", 'gD', 'Gemischte D-Jugend', 'gD-JUGEND'],
+      ["wJD-BK-1", 'wD', 'Weibliche D-Jugend', 'wD-JUGEND'],
+      ["wJA-BL-1", 'wA', 'Weibliche A-Jugend', 'wA-JUGEND'],
+      ["gJE-6+1", 'gE', 'Gemischte E-Jugend', 'gE-JUGEND'],
+      ["mJA-BL", 'mA', 'Männliche A-Jugend', 'mA-JUGEND'],
+      ["mJC-BK-1", 'mC', 'Männliche C-Jugend', 'mC-JUGEND'],
+      ["gJF-1", 'gF', 'Gemischte F-Jugend', 'gF-JUGEND'],
+      ["F-Pok-B", 'wP', 'Pokalspiel D1', 'DAMEN 1 (POKAL)'],
+      ["ABCDES", '', 'ABCDES', 'ABCDES'],
     ];
 
-    it.each(dataSet)('should return the short name of the team', (team, teamName, short, long, upper) => {
-      const result = handball.mapTeamName(team, teamName);
+    it.each(dataSet)('should return the short name of the team', (team, short, long, upper) => {
+      const result = handball.mapTeamName(team);
 
       expect(result).toStrictEqual({ short: short, long: long, upper: upper });
     });

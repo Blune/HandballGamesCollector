@@ -84,7 +84,7 @@ function createGameData(element, city) {
     const dateTime = getDateTime(element.Date, element.Time);
     const homeGame = element.HomeTeam.startsWith(teamLA);
     const n = homeGame ? element.HomeTeam : element.GuestTeam;
-    const teamNames = mapTeamName(element.Team, n);
+    const teamNames = mapTeamName(element.Team);
     return {
         team: element.Team,
         teamname: teamNames.long,
@@ -111,26 +111,27 @@ function getDateOfMonday(now) {
     return mondayOfThisWeek;
 }
 
-function mapTeamName(team, teamname) {
+function mapTeamName(team) {
     switch (team) {
-        case 'M-KLA-D':
+        case 'M-BK-D':
             return { short: 'M1', long: 'Männer 1', upper: 'MÄNNER 1' };
-        case 'M-KLB-D':
+        case 'M-2BK-D':
             return { short: 'M2', long: 'Männer 2', upper: 'MÄNNER 2' };
-        case 'F-KLA-D':
-            if (teamname == 'TSV Laichingen 2')
-                return { short: 'D2', long: 'Damen 2', upper: 'DAMEN 2' };
-            else
-                return { short: 'D1', long: 'Damen 1', upper: 'DAMEN 1' };
-        case 'gJD-KLC-1':
+        case 'F-BL':
+            return { short: 'D1', long: 'Damen 1', upper: 'DAMEN 1' };
+        case 'F-BK-D':
+            return { short: 'D2', long: 'Damen 2', upper: 'DAMEN 2' };
+        case 'gJD-3BK-1':
             return { short: 'gD', long: 'Gemischte D-Jugend', upper: 'gD-JUGEND' };
-        case 'wJB-KL-1':
-            return { short: 'wB', long: 'Weibliche B-Jugend', upper: 'wB-JUGEND' };
+        case 'wJD-BK-1':
+            return { short: 'wD', long: 'Weibliche D-Jugend', upper: 'wD-JUGEND' };
+        case 'wJA-BL-1':
+            return { short: 'wA', long: 'Weibliche A-Jugend', upper: 'wA-JUGEND' };
         case 'gJE-6+1':
             return { short: 'gE', long: 'Gemischte E-Jugend', upper: 'gE-JUGEND' };
-        case 'mJB-KL-1':
-            return { short: 'mB', long: 'Männliche B-Jugend', upper: 'mB-JUGEND' };
-        case 'mJC-KLC-1':
+        case 'mJA-BL':
+            return { short: 'mA', long: 'Männliche A-Jugend', upper: 'mA-JUGEND' };
+        case 'mJC-BK-1':
             return { short: 'mC', long: 'Männliche C-Jugend', upper: 'mC-JUGEND' };
         case 'gJF-1':
             return { short: 'gF', long: 'Gemischte F-Jugend', upper: 'gF-JUGEND' };
