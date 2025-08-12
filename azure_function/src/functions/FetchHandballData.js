@@ -1,6 +1,5 @@
 const { app } = require('@azure/functions');
 const { BlobServiceClient } = require("@azure/storage-blob");
-const fetch = require('node-fetch');
 
 app.timer('FetchHandballData', {
     schedule: '0 00 18 * * 6,0',
@@ -173,9 +172,10 @@ function getNextMatches(now, gamesOfTeam) {
 }
 
 function storeInContainer(containerClient, data, name) {
-    containerClient
-        .getBlockBlobClient(name)
-        .upload(JSON.stringify(data), JSON.stringify(data).length);
+  const body = JSON.stringify(data);
+  containerClient
+    .getBlockBlobClient(name)
+    .upload(body, Buffer.byteLength(body));
 }
 
 function getContainerClient(storage, containerName) {

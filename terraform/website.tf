@@ -16,7 +16,7 @@ EOT
 
 resource "azurerm_storage_container" "handball-storage-web-container" {
   name                  = "$web"
-  storage_account_name  = azurerm_storage_account.handball-storage-account.name
+  storage_account_id  = azurerm_storage_account.handball-storage-account.id
   container_access_type = "private"
 }
 
